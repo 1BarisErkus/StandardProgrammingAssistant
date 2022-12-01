@@ -36,7 +36,6 @@
             this.lblDatabase = new System.Windows.Forms.Label();
             this.comboDb = new System.Windows.Forms.ComboBox();
             this.gboxWrite = new System.Windows.Forms.GroupBox();
-            this.btnCreateAllProcedure = new System.Windows.Forms.Button();
             this.btnAllTable = new System.Windows.Forms.Button();
             this.btnSelectedTable = new System.Windows.Forms.Button();
             this.gboxIfYouHave = new System.Windows.Forms.GroupBox();
@@ -141,7 +140,6 @@
             // 
             // gboxWrite
             // 
-            this.gboxWrite.Controls.Add(this.btnCreateAllProcedure);
             this.gboxWrite.Controls.Add(this.btnAllTable);
             this.gboxWrite.Controls.Add(this.btnSelectedTable);
             this.gboxWrite.Location = new System.Drawing.Point(301, 12);
@@ -151,33 +149,23 @@
             this.gboxWrite.TabStop = false;
             this.gboxWrite.Text = "Write the file on desktop";
             // 
-            // btnCreateAllProcedure
-            // 
-            this.btnCreateAllProcedure.Location = new System.Drawing.Point(6, 163);
-            this.btnCreateAllProcedure.Name = "btnCreateAllProcedure";
-            this.btnCreateAllProcedure.Size = new System.Drawing.Size(245, 63);
-            this.btnCreateAllProcedure.TabIndex = 2;
-            this.btnCreateAllProcedure.Text = "Create All Procedure For Selected Database";
-            this.btnCreateAllProcedure.UseVisualStyleBackColor = true;
-            this.btnCreateAllProcedure.Click += new System.EventHandler(this.btnCreateAllProcedure_Click);
-            // 
             // btnAllTable
             // 
-            this.btnAllTable.Location = new System.Drawing.Point(6, 91);
+            this.btnAllTable.Location = new System.Drawing.Point(6, 129);
             this.btnAllTable.Name = "btnAllTable";
             this.btnAllTable.Size = new System.Drawing.Size(245, 63);
             this.btnAllTable.TabIndex = 1;
-            this.btnAllTable.Text = "All table for selected database";
+            this.btnAllTable.Text = "Create All Procedure For Selected Database";
             this.btnAllTable.UseVisualStyleBackColor = true;
             this.btnAllTable.Click += new System.EventHandler(this.btnAllTable_Click);
             // 
             // btnSelectedTable
             // 
-            this.btnSelectedTable.Location = new System.Drawing.Point(6, 20);
+            this.btnSelectedTable.Location = new System.Drawing.Point(6, 39);
             this.btnSelectedTable.Name = "btnSelectedTable";
             this.btnSelectedTable.Size = new System.Drawing.Size(245, 63);
             this.btnSelectedTable.TabIndex = 0;
-            this.btnSelectedTable.Text = "Selected Table";
+            this.btnSelectedTable.Text = "Create Procedure For Selected Table";
             this.btnSelectedTable.UseVisualStyleBackColor = true;
             this.btnSelectedTable.Click += new System.EventHandler(this.btnSelectedTable_Click);
             // 
@@ -363,7 +351,6 @@
         private System.Windows.Forms.Label lblDatabase;
         private System.Windows.Forms.ComboBox comboDb;
         private System.Windows.Forms.GroupBox gboxWrite;
-        private System.Windows.Forms.Button btnCreateAllProcedure;
         private System.Windows.Forms.Button btnAllTable;
         private System.Windows.Forms.Button btnSelectedTable;
         private System.Windows.Forms.GroupBox gboxIfYouHave;

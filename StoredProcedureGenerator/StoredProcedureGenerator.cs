@@ -762,14 +762,14 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
             exec_insert += Environment.NewLine + "GO";
             textBoxExecuteSp.AppendText(exec_insert);
         }
-        void WriteTheFileStoredProcedure()
+        void WriteTheFileStoredProcedure(string tableName)
         {
             try
             {
                 fileText = "";
-                filePath = "C:\\Users\\" + Environment.MachineName + "\\Desktop";
+                filePath = "C:\\Users\\" + Environment.MachineName + "\\Desktop\\StoredProcedures";
 
-                //filePath += "\\" + SelectedTable + ".sql";
+                filePath += "\\" + tableName + ".sql";
 
                 fileText += "USE [" + SelectedDb + "]" + Environment.NewLine;
                 fileText += textBoxSelectwId.Text;
@@ -797,14 +797,14 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void WriteTheFileExecuteProcedure()
+        void WriteTheFileExecuteProcedure(string tableName)
         {
             try
             {
                 fileText = "";
-                filePath = "C:\\Users\\" + Environment.MachineName + "\\Desktop";
+                filePath = "C:\\Users\\" + Environment.MachineName + "\\Desktop\\StoredProcedures";
 
-                //filePath += "\\" + "Exec" + SelectedTable + ".sql";
+                filePath += "\\" + "Exec" + tableName + ".sql";
 
                 fileText += "USE [" + SelectedDb + Environment.NewLine;
 
@@ -886,21 +886,49 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
             }
         }
 
-        private void btnSelectedTable_Click(object sender, EventArgs e)
+        void createFolder(string folderName)
         {
-            WriteTheFileStoredProcedure();
-            WriteTheFileExecuteProcedure();
+            string path;
+
+            path = "C:\\Users\\" + Environment.MachineName + "\\Desktop\\";
+            var folder = Path.Combine(path, folderName);
+
+            Directory.CreateDirectory(folder);
         }
 
+        private void btnSelectedTable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // 0:both 1:flutter 2:csharp
+                if (SelectedTable.Length > 1)
+                {
+                    tableName = comboTable.SelectedItem.ToString();
+                    createFolder("StoredProcedures");
+                    WriteTheFileStoredProcedure(tableName);
+                    WriteTheFileExecuteProcedure(tableName);
+                }
+                else
+                {
+                    MessageBox.Show("Please select a table.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        string tableName = "";
         private void btnAllTable_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < totalTableCountForSelectedDb; i++)
+            for (int i = 0; i < comboTable.Items.Count; i++)
             {
-
+                tableName = comboTable.Items[i].ToString();
+                createFolder("StoredProcedures");
+                WriteTheFileStoredProcedure(tableName);
+                WriteTheFileExecuteProcedure(tableName);
             }
-
-            WriteTheFileStoredProcedure();
-            WriteTheFileExecuteProcedure();
         }
 
         private void btnCreateAllProcedure_Click(object sender, EventArgs e)

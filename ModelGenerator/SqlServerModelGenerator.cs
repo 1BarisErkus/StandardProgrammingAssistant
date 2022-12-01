@@ -93,6 +93,8 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
                     }
                 }
+                lblConnect.Visible = true;
+                pictureConnect.Visible = true;
             }
             catch (Exception)
             {
@@ -796,13 +798,6 @@ namespace StandardProgrammingAssistant.ModelGenerator
             determineConnectionString();
         }
 
-        private void textBoxPassword_TextChanged(object sender, EventArgs e)
-        {
-            extra = "";
-            userId = ";user id=" + comboLogin.Text;
-            checkSqlAuth();
-        }
-
         private void comboDb_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (textBoxNamespace.Text == "Don't_forget_to_fill_me_in_please.")
@@ -1353,10 +1348,29 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
         private void radioButtonWindowsAuth_Click(object sender, EventArgs e)
         {
+            lblConnect.Visible = false;
+            pictureConnect.Visible = false;
             extra = ";Trusted_Connection= true;";
             comboDb.Enabled = true;
             comboTable.Enabled = true;
             ShowSqlServerLoginInterface(false);
+        }
+
+        private void btnConnect_MouseHover(object sender, EventArgs e)
+        {
+            btnConnect.BackColor = Color.DarkGreen;
+        }
+
+        private void btnConnect_MouseLeave(object sender, EventArgs e)
+        {
+            btnConnect.BackColor = Color.MediumSeaGreen;
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            extra = "";
+            userId = ";user id=" + comboLogin.Text;
+            checkSqlAuth();
         }
     }
 }

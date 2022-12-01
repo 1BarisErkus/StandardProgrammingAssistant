@@ -33,6 +33,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxConnectAnotherServer = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.picturePassword = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -64,6 +65,8 @@
             this.textBoxFlutter = new System.Windows.Forms.TextBox();
             this.pictureBoxUserGuide = new System.Windows.Forms.PictureBox();
             this.pictureBoxRelease = new System.Windows.Forms.PictureBox();
+            this.pictureConnect = new System.Windows.Forms.PictureBox();
+            this.lblConnect = new System.Windows.Forms.Label();
             this.gboxServer.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picturePassword)).BeginInit();
@@ -78,6 +81,7 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserGuide)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRelease)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConnect)).BeginInit();
             this.SuspendLayout();
             // 
             // gboxServer
@@ -124,6 +128,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnConnect);
             this.groupBox1.Controls.Add(this.textBoxPassword);
             this.groupBox1.Controls.Add(this.picturePassword);
             this.groupBox1.Controls.Add(this.label3);
@@ -138,13 +143,29 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Login Authentication";
             // 
+            // btnConnect
+            // 
+            this.btnConnect.BackColor = System.Drawing.Color.MediumSeaGreen;
+            this.btnConnect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConnect.ForeColor = System.Drawing.Color.White;
+            this.btnConnect.Location = new System.Drawing.Point(214, 99);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(87, 32);
+            this.btnConnect.TabIndex = 7;
+            this.btnConnect.Text = "Connect";
+            this.btnConnect.UseVisualStyleBackColor = false;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            this.btnConnect.MouseLeave += new System.EventHandler(this.btnConnect_MouseLeave);
+            this.btnConnect.MouseHover += new System.EventHandler(this.btnConnect_MouseHover);
+            // 
             // textBoxPassword
             // 
-            this.textBoxPassword.Location = new System.Drawing.Point(165, 79);
+            this.textBoxPassword.Location = new System.Drawing.Point(165, 73);
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(136, 20);
             this.textBoxPassword.TabIndex = 6;
-            this.textBoxPassword.TextChanged += new System.EventHandler(this.textBoxPassword_TextChanged);
             // 
             // picturePassword
             // 
@@ -161,7 +182,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(162, 56);
+            this.label3.Location = new System.Drawing.Point(162, 50);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 13);
             this.label3.TabIndex = 4;
@@ -170,7 +191,7 @@
             // comboLogin
             // 
             this.comboLogin.FormattingEnabled = true;
-            this.comboLogin.Location = new System.Drawing.Point(6, 78);
+            this.comboLogin.Location = new System.Drawing.Point(6, 72);
             this.comboLogin.Name = "comboLogin";
             this.comboLogin.Size = new System.Drawing.Size(129, 21);
             this.comboLogin.TabIndex = 3;
@@ -179,7 +200,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 56);
+            this.label2.Location = new System.Drawing.Point(6, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(33, 13);
             this.label2.TabIndex = 2;
@@ -455,11 +476,34 @@
             this.pictureBoxRelease.TabStop = false;
             this.pictureBoxRelease.Click += new System.EventHandler(this.pictureBoxRelease_Click);
             // 
+            // pictureConnect
+            // 
+            this.pictureConnect.Image = global::StandardProgrammingAssistant.Properties.Resources.check;
+            this.pictureConnect.Location = new System.Drawing.Point(12, 718);
+            this.pictureConnect.Name = "pictureConnect";
+            this.pictureConnect.Size = new System.Drawing.Size(17, 14);
+            this.pictureConnect.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureConnect.TabIndex = 11;
+            this.pictureConnect.TabStop = false;
+            this.pictureConnect.Visible = false;
+            // 
+            // lblConnect
+            // 
+            this.lblConnect.AutoSize = true;
+            this.lblConnect.Location = new System.Drawing.Point(35, 719);
+            this.lblConnect.Name = "lblConnect";
+            this.lblConnect.Size = new System.Drawing.Size(59, 13);
+            this.lblConnect.TabIndex = 12;
+            this.lblConnect.Text = "Connected";
+            this.lblConnect.Visible = false;
+            // 
             // SqlServerModelGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 744);
+            this.Controls.Add(this.lblConnect);
+            this.Controls.Add(this.pictureConnect);
             this.Controls.Add(this.pictureBoxUserGuide);
             this.Controls.Add(this.pictureBoxRelease);
             this.Controls.Add(this.groupBox5);
@@ -494,7 +538,9 @@
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserGuide)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRelease)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConnect)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -536,5 +582,8 @@
         private System.Windows.Forms.PictureBox pictureBoxUserGuide;
         private System.Windows.Forms.TextBox textBoxCsharp;
         private System.Windows.Forms.TextBox textBoxFlutter;
+        private System.Windows.Forms.Button btnConnect;
+        private System.Windows.Forms.PictureBox pictureConnect;
+        private System.Windows.Forms.Label lblConnect;
     }
 }
