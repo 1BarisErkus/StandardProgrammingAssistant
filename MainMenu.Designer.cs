@@ -49,7 +49,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 1);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(635, 785);
+            this.tabControl1.Size = new System.Drawing.Size(809, 785);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
@@ -58,7 +58,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(627, 759);
+            this.tabPage1.Size = new System.Drawing.Size(801, 759);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Generate Stored Procedure";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -67,7 +67,7 @@
             // 
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(621, 748);
+            this.panel1.Size = new System.Drawing.Size(798, 748);
             this.panel1.TabIndex = 0;
             // 
             // tabPage2
@@ -76,7 +76,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(692, 759);
+            this.tabPage2.Size = new System.Drawing.Size(801, 759);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Generate Model";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -85,7 +85,7 @@
             // 
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(683, 750);
+            this.panel2.Size = new System.Drawing.Size(795, 750);
             this.panel2.TabIndex = 1;
             // 
             // tabPage3
@@ -94,7 +94,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(692, 759);
+            this.tabPage3.Size = new System.Drawing.Size(801, 759);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Generate Join Table";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -103,14 +103,14 @@
             // 
             this.panel3.Location = new System.Drawing.Point(3, 3);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(683, 745);
+            this.panel3.Size = new System.Drawing.Size(795, 745);
             this.panel3.TabIndex = 1;
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 783);
+            this.ClientSize = new System.Drawing.Size(808, 783);
             this.Controls.Add(this.tabControl1);
             this.IsMdiContainer = true;
             this.Name = "MainMenu";
