@@ -36,6 +36,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
 
         string SelectedDb = "";
         string SelectedTable = "";
+        string tableName = "";
 
         List<string> listDatabases = new List<string>();
         List<string> listTables = new List<string>();
@@ -45,7 +46,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
 
         string fileText = "";
         string filePath = "";
-
+        
 
         int connectionType = -1;
 
@@ -900,35 +901,41 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
         {
             try
             {
-                // 0:both 1:flutter 2:csharp
-                if (SelectedTable.Length > 1)
-                {
-                    tableName = comboTable.SelectedItem.ToString();
-                    createFolder("StoredProcedures");
-                    WriteTheFileStoredProcedure(tableName);
-                    WriteTheFileExecuteProcedure(tableName);
-                }
-                else
-                {
-                    MessageBox.Show("Please select a table.");
-                }
+                    if (comboTable.SelectedItem != null)
+                    {
+                        tableName = comboTable.SelectedItem.ToString();
+                        createFolder("StoredProcedures");
+                        WriteTheFileStoredProcedure(tableName);
+                        WriteTheFileExecuteProcedure(tableName);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please select a table.");
+                    }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-
-        string tableName = "";
+        
         private void btnAllTable_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < comboTable.Items.Count; i++)
+            if (comboDb.SelectedItem != null)
             {
-                tableName = comboTable.Items[i].ToString();
-                createFolder("StoredProcedures");
-                WriteTheFileStoredProcedure(tableName);
-                WriteTheFileExecuteProcedure(tableName);
+                for (int i = 0; i < comboTable.Items.Count; i++)
+                {
+                    tableName = comboTable.Items[i].ToString();
+                    createFolder("StoredProcedures");
+                    WriteTheFileStoredProcedure(tableName);
+                    WriteTheFileExecuteProcedure(tableName);
+                }
             }
+            else
+            {
+                MessageBox.Show("Please select a database.");
+            }
+            
         }
 
         private void btnCreateAllProcedure_Click(object sender, EventArgs e)

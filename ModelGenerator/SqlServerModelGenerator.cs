@@ -34,6 +34,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
         string selectedTableSingular = "";
         string fileText = "";
         string filePath = "";
+        string tableName = "";
 
         List<SqlServerUsers> sqlServerUsers = new List<SqlServerUsers>();
         List<string> listDatabases = new List<string>();
@@ -72,7 +73,6 @@ namespace StandardProgrammingAssistant.ModelGenerator
         {
             try
             {
-                userPass = ";password=" + textBoxPassword.Text;
                 determineConnectionString();
 
                 using (var connection = new SqlConnection(connectionString))
@@ -87,14 +87,15 @@ namespace StandardProgrammingAssistant.ModelGenerator
                         comboLogin.ForeColor = Color.Green;
                         comboDb.Enabled = true;
                         comboTable.Enabled = true;
-                        determineConnectionString();
                         getAllDbsName();
                         addDbNametoCombobox();
-
                     }
                 }
                 lblConnect.Visible = true;
                 pictureConnect.Visible = true;
+                btnForSelectedTable.Enabled = true;
+                btnForSelectedDatabase.Enabled = true;
+                comboFilePrefences.Enabled = true;
             }
             catch (Exception)
             {
@@ -111,6 +112,13 @@ namespace StandardProgrammingAssistant.ModelGenerator
             initialCatalog = "";
             userId = "";
             userPass = "";
+        }
+        void clearItems()
+        {
+            comboDb.Text = "";
+            comboTable.Text = "";
+            SelectedDb = "";
+            SelectedTable = "";
         }
         void determineConnectionString()
         {
@@ -792,12 +800,6 @@ namespace StandardProgrammingAssistant.ModelGenerator
             dataSource = "data source = " + textBoxServerIP.Text;
         }
 
-        private void comboLogin_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            userId = ";user id=" + comboLogin.Text;
-            determineConnectionString();
-        }
-
         private void comboDb_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (textBoxNamespace.Text == "Don't_forget_to_fill_me_in_please.")
@@ -846,7 +848,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 textBoxCsharp.Clear();
                 textBoxFlutter.Clear();
 
-                if (comboTable.SelectedItem != null)
+                if (comboTable.SelectedItem != null && comboTable.SelectedItem != "")
                 {
                     SelectedTable = comboTable.SelectedItem.ToString();
                     determineConnectionString();
@@ -874,7 +876,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
             try
             {
                 // 0:both 1:flutter 2:csharp
-                if (SelectedTable.Length > 1)
+                if (comboTable.Text != null && comboTable.Text != "")
                 {
                     if (comboFilePrefences.SelectedIndex == 0)
                     {
@@ -895,7 +897,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                     {
                         createFolder("Flutter");
 
-                        tabControl1.SelectedTab = tabControl1.TabPages["tabPageFlutter"];
+                        tabControl1.SelectedTab = tabControl1.TabPages["tabPage2"];
 
                         WritetoFileforFlutter();
 
@@ -905,19 +907,12 @@ namespace StandardProgrammingAssistant.ModelGenerator
                     else if (comboFilePrefences.SelectedIndex == 2)
                     {
                         createFolder("Csharp");
-                        if (SelectedTable.Length > 1)
-                        {
-                            tabControl1.SelectedTab = tabControl1.TabPages["tabPageCsharp"];
+                            tabControl1.SelectedTab = tabControl1.TabPages["tabPage1"];
 
                             WritetoFileforCsharp();
 
                             textBoxCsharp.Clear();
                             textBoxCsharp.AppendText("The C# file was created on the desktop : .cs");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Please select a table.");
-                        }
                     }
                     else
                     {
@@ -947,7 +942,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                     {
                         textBoxCsharp.Clear();
                         textBoxFlutter.Clear();
-                        initialCatalog = "initial catalog=" + SelectedDb;
+                        initialCatalog = ";initial catalog=" + SelectedDb;
 
                         //  getTotalColumnCount
                         using (var connection = new SqlConnection(connectionString))
@@ -1335,15 +1330,18 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
         private void radioButtonSqlServerAuth_Click(object sender, EventArgs e)
         {
-            comboDb.Text = "";
-            comboTable.Text = "";
             comboDb.Enabled = false;
             comboTable.Enabled = false;
+            btnConnect.Enabled = true;
             pictureDb.Visible = false;
             pictureTable.Visible = false;
             authType = true;
+            btnForSelectedTable.Enabled = false;
+            btnForSelectedDatabase.Enabled = false;
+            comboFilePrefences.Enabled = false;
             extra = "";
             ShowSqlServerLoginInterface(true);
+            clearItems();
         }
 
         private void radioButtonWindowsAuth_Click(object sender, EventArgs e)
@@ -1353,7 +1351,12 @@ namespace StandardProgrammingAssistant.ModelGenerator
             extra = ";Trusted_Connection= true;";
             comboDb.Enabled = true;
             comboTable.Enabled = true;
+            btnConnect.Enabled = false;
+            btnForSelectedTable.Enabled = true;
+            btnForSelectedDatabase.Enabled = true;
+            comboFilePrefences.Enabled = true;
             ShowSqlServerLoginInterface(false);
+            clearItems();
         }
 
         private void btnConnect_MouseHover(object sender, EventArgs e)
@@ -1370,7 +1373,9 @@ namespace StandardProgrammingAssistant.ModelGenerator
         {
             extra = "";
             userId = ";user id=" + comboLogin.Text;
+            userPass = ";password=" + textBoxPassword.Text;
             checkSqlAuth();
         }
+
     }
 }

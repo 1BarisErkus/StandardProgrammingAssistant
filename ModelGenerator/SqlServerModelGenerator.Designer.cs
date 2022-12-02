@@ -147,6 +147,7 @@
             // 
             this.btnConnect.BackColor = System.Drawing.Color.MediumSeaGreen;
             this.btnConnect.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConnect.Enabled = false;
             this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnConnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConnect.ForeColor = System.Drawing.Color.White;
@@ -195,7 +196,6 @@
             this.comboLogin.Name = "comboLogin";
             this.comboLogin.Size = new System.Drawing.Size(129, 21);
             this.comboLogin.TabIndex = 3;
-            this.comboLogin.SelectedIndexChanged += new System.EventHandler(this.comboLogin_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -451,7 +451,7 @@
             this.textBoxFlutter.Location = new System.Drawing.Point(-4, 0);
             this.textBoxFlutter.Multiline = true;
             this.textBoxFlutter.Name = "textBoxFlutter";
-            this.textBoxFlutter.Size = new System.Drawing.Size(562, 246);
+            this.textBoxFlutter.Size = new System.Drawing.Size(562, 250);
             this.textBoxFlutter.TabIndex = 0;
             // 
             // pictureBoxUserGuide
