@@ -26,6 +26,7 @@ namespace StandardProgrammingAssistant.JoinTable
         string SelectedDb = "";
         string SelectedTable = "";
         string SelectedColumn = "";
+        string selectedTableSingular = "";
 
         List<string> listDatabases = new List<string>();
         List<string> listTables = new List<string>();
@@ -181,21 +182,26 @@ namespace StandardProgrammingAssistant.JoinTable
             string table4 = "";
             string table5 = "";
 
+            string singularTable1 = makeSelectedTableSingular(table1);
+            string singularTable2 = makeSelectedTableSingular(table2);
+            string singularTable3 = "";
+            string singularTable4 = "";
+            string singularTable5 = "";
             for (int i = 0; i < comboTable1Columns.Items.Count; i++)
             {
                 if (i == 0)
                 {
-                    sqlJoin += table1 + "." + comboTable1Columns.Items[i] + " AS " + table1 + comboTable1Columns.Items[i] + Environment.NewLine;
+                    sqlJoin += table1 + "." + comboTable1Columns.Items[i] + " AS " + singularTable1 + comboTable1Columns.Items[i] + Environment.NewLine;
                 }
                 else
                 {
-                    sqlJoin += "," + table1 + "." + comboTable1Columns.Items[i] + " AS " + table1 + comboTable1Columns.Items[i] + Environment.NewLine;
+                    sqlJoin += "," + table1 + "." + comboTable1Columns.Items[i] + " AS " + singularTable1 + comboTable1Columns.Items[i] + Environment.NewLine;
                 }
             }
 
             for (int i = 0; i < comboTable2Columns.Items.Count; i++)
             {
-                sqlJoin += "," + table2 + "." + comboTable2Columns.Items[i] + " AS " + table2 + comboTable2Columns.Items[i] + Environment.NewLine;
+                sqlJoin += "," + table2 + "." + comboTable2Columns.Items[i] + " AS " + singularTable2 + comboTable2Columns.Items[i] + Environment.NewLine;
             }
 
             switch (numericNumberofTable.Value)
@@ -211,10 +217,11 @@ namespace StandardProgrammingAssistant.JoinTable
                     break;
                 case 3:
                     table3 = comboTable3.SelectedItem.ToString();
+                    singularTable3 = makeSelectedTableSingular(table3);
 
                     for (int i = 0; i < comboTable3Columns.Items.Count; i++)
                     {
-                        sqlJoin += "," + table3 + "." + comboTable3Columns.Items[i] + " AS " + table3 + comboTable3Columns.Items[i] + Environment.NewLine;
+                        sqlJoin += "," + table3 + "." + comboTable3Columns.Items[i] + " AS " + singularTable3 + comboTable3Columns.Items[i] + Environment.NewLine;
                     }
 
                     sqlJoin += " FROM " + table1 + Environment.NewLine
@@ -232,14 +239,16 @@ namespace StandardProgrammingAssistant.JoinTable
                 case 4:
                     table3 = comboTable3.SelectedItem.ToString();
                     table4 = comboTable4.SelectedItem.ToString();
+                    singularTable3 = makeSelectedTableSingular(table3);
+                    singularTable4 = makeSelectedTableSingular(table4);
 
                     for (int i = 0; i < comboTable3Columns.Items.Count; i++)
                     {
-                        sqlJoin += "," + table3 + "." + comboTable3Columns.Items[i] + " AS " + table3 + comboTable3Columns.Items[i] + Environment.NewLine;
+                        sqlJoin += "," + table3 + "." + comboTable3Columns.Items[i] + " AS " + singularTable3 + comboTable3Columns.Items[i] + Environment.NewLine;
                     }
                     for (int i = 0; i < comboTable4Columns.Items.Count; i++)
                     {
-                        sqlJoin += "," + table4 + "." + comboTable4Columns.Items[i] + " AS " + table4 + comboTable4Columns.Items[i] + Environment.NewLine;
+                        sqlJoin += "," + table4 + "." + comboTable4Columns.Items[i] + " AS " + singularTable4 + comboTable4Columns.Items[i] + Environment.NewLine;
                     }
 
                     sqlJoin += " FROM " + table1 + Environment.NewLine
@@ -262,18 +271,21 @@ namespace StandardProgrammingAssistant.JoinTable
                     table3 = comboTable3.SelectedItem.ToString();
                     table4 = comboTable4.SelectedItem.ToString();
                     table5 = comboTable5.SelectedItem.ToString();
+                    singularTable3 = makeSelectedTableSingular(table3);
+                    singularTable4 = makeSelectedTableSingular(table4);
+                    singularTable5 = makeSelectedTableSingular(table5);
 
                     for (int i = 0; i < comboTable3Columns.Items.Count; i++)
                     {
-                        sqlJoin += "," + table3 + "." + comboTable3Columns.Items[i] + " AS " + table3 + comboTable3Columns.Items[i] + Environment.NewLine;
+                        sqlJoin += "," + table3 + "." + comboTable3Columns.Items[i] + " AS " + singularTable3 + comboTable3Columns.Items[i] + Environment.NewLine;
                     }
                     for (int i = 0; i < comboTable4Columns.Items.Count; i++)
                     {
-                        sqlJoin += "," + table4 + "." + comboTable4Columns.Items[i] + " AS " + table4 + comboTable4Columns.Items[i] + Environment.NewLine;
+                        sqlJoin += "," + table4 + "." + comboTable4Columns.Items[i] + " AS " + singularTable4 + comboTable4Columns.Items[i] + Environment.NewLine;
                     }
                     for (int i = 0; i < comboTable5Columns.Items.Count; i++)
                     {
-                        sqlJoin += "," + table5 + "." + comboTable5Columns.Items[i] + " AS " + table2 + comboTable5Columns.Items[i] + Environment.NewLine;
+                        sqlJoin += "," + table5 + "." + comboTable5Columns.Items[i] + " AS " + singularTable5 + comboTable5Columns.Items[i] + Environment.NewLine;
                     }
 
                     sqlJoin += " FROM " + table1 + Environment.NewLine
@@ -328,13 +340,13 @@ namespace StandardProgrammingAssistant.JoinTable
                     dynamicFilePath = staticFilePath;
                     dynamicFilePath += "JOIN" + comboTable3.Text + "JOIN" + comboTable4.Text;
                 }
-                else if(numericNumberofTable.Value == 5)
+                else if (numericNumberofTable.Value == 5)
                 {
                     dynamicFilePath = staticFilePath;
                     dynamicFilePath = "JOIN" + comboTable3.Text + "JOIN" + comboTable4.Text + "JOIN" + comboTable5.Text;
                 }
 
-                dynamicFilePath += ".sql"; 
+                dynamicFilePath += ".sql";
 
                 fileText += textBoxJoinQuery.Text;
 
@@ -348,6 +360,47 @@ namespace StandardProgrammingAssistant.JoinTable
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        string makeSelectedTableSingular(string SelectedTable)
+        {
+            try
+            {
+                // Irregular plurals are dangerous ! ! !
+                selectedTableSingular = SelectedTable;
+
+                //TODO| First Turkish character control.
+                if (selectedTableSingular.ToLower().EndsWith("ler") || selectedTableSingular.ToLower().EndsWith("lar"))
+                {
+                    selectedTableSingular = selectedTableSingular.Substring(0, selectedTableSingular.Length - 3);
+                }
+
+                //TODO| Check English spelling rules -ies  -y
+                if (selectedTableSingular.ToLower().EndsWith("ies"))
+                {
+                    selectedTableSingular = selectedTableSingular.Substring(0, selectedTableSingular.Length - 3) + "y";
+                }
+                //TODO| Add es to words ending in -ch, -s, -sh, -x, -z:
+                if ((selectedTableSingular.ToLower().EndsWith("es") && !(selectedTableSingular.ToLower().EndsWith("ies"))))
+                {
+                    if (selectedTableSingular.EndsWith("ches") || selectedTableSingular.EndsWith("ses") || selectedTableSingular.EndsWith("shes") || selectedTableSingular.EndsWith("xes") || selectedTableSingular.EndsWith("zes"))
+                        selectedTableSingular = selectedTableSingular.Substring(0, selectedTableSingular.Length - 2);
+                }
+                //TODO| Check English spelling rules -ves  -fe   knives - knife
+                if (selectedTableSingular.ToLower().EndsWith("ves"))
+                {
+                    selectedTableSingular = selectedTableSingular.Substring(0, selectedTableSingular.Length - 3) + "fe";
+                }
+                if (selectedTableSingular.ToLower().EndsWith("s"))
+                {
+                    selectedTableSingular = selectedTableSingular.Substring(0, selectedTableSingular.Length - 1);
+                }
+                return selectedTableSingular;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Database tables deduplication error" + ex.Message);
+            }
+            return "empty";
         }
         void visibilityOpen(PictureBox pictureTable, Label lblKey, ComboBox comboTableColumns)
         {
@@ -531,8 +584,63 @@ namespace StandardProgrammingAssistant.JoinTable
 
         private void btnCreateJoin_Click(object sender, EventArgs e)
         {
-            WritetoTextBoxJoin();
-            btnWriteonDesktop.Enabled = true;
+            if (numericNumberofTable.Value == 2)
+            {
+                if (comboTable1.SelectedIndex != -1 && comboTable2.SelectedIndex != -1 && comboTable1Columns.SelectedIndex != -1
+                    && comboTable2Columns.SelectedIndex != -1)
+                {
+                    WritetoTextBoxJoin();
+                    btnWriteonDesktop.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Please fill the empty fields");
+                }
+            }
+            else if (numericNumberofTable.Value == 3)
+            {
+                if (comboTable1.SelectedIndex != -1 && comboTable2.SelectedIndex != -1 && comboTable3.SelectedIndex != -1
+                    && comboTable1Columns.SelectedIndex != -1 && comboTable2Columns.SelectedIndex != -1
+                    && comboTable3Columns.SelectedIndex != -1)
+                {
+                    WritetoTextBoxJoin();
+                    btnWriteonDesktop.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Please fill the empty fields");
+                }
+            }
+            else if (numericNumberofTable.Value == 4)
+            {
+                if (comboTable1.SelectedIndex != -1 && comboTable2.SelectedIndex != -1 && comboTable3.SelectedIndex != -1
+                    && comboTable4.SelectedIndex != -1 && comboTable1Columns.SelectedIndex != -1
+                    && comboTable2Columns.SelectedIndex != -1 && comboTable3Columns.SelectedIndex != -1
+                    && comboTable4Columns.SelectedIndex != -1)
+                {
+                    WritetoTextBoxJoin();
+                    btnWriteonDesktop.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Please fill the empty fields");
+                }
+            }
+            else if (numericNumberofTable.Value == 5)
+            {
+                if (comboTable1.SelectedIndex != -1 && comboTable2.SelectedIndex != -1 && comboTable3.SelectedIndex != -1
+                && comboTable4.SelectedIndex != -1 && comboTable5.SelectedIndex != -1 && comboTable1Columns.SelectedIndex != -1
+                && comboTable2Columns.SelectedIndex != -1 && comboTable3Columns.SelectedIndex != -1
+                && comboTable4Columns.SelectedIndex != -1 && comboTable5Columns.SelectedIndex != -1)
+                {
+                    WritetoTextBoxJoin();
+                    btnWriteonDesktop.Enabled = true;
+                }
+                else
+                {
+                    MessageBox.Show("Please fill the empty fields");
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -543,10 +651,11 @@ namespace StandardProgrammingAssistant.JoinTable
                 {
                     createFolder("Joins");
                     writeTheFileJoin();
+                    MessageBox.Show("File saved to desktop");
                 }
                 else
                 {
-                    MessageBox.Show("");
+                    MessageBox.Show("Beklenmedik bir hata oluştu");
                 }
             }
             catch (Exception ex)
