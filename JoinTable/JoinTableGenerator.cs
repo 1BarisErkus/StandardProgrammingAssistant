@@ -436,6 +436,17 @@ namespace StandardProgrammingAssistant.JoinTable
                 MessageBox.Show(ex.Message);
             }
         }
+        void ExecuteQuery(string query, SqlConnection sqlConn)
+        {
+            sqlConn.Execute(query);
+        }
+        void ExecuteStoredProcedure()
+        {
+            using (var sqlConn = new SqlConnection(connectionStringforSelectedDB))
+            {
+                ExecuteQuery(textBoxExecuteSp.Text, sqlConn);
+            }
+        }
         string makeSelectedTableSingular(string SelectedTable)
         {
             try
@@ -720,6 +731,8 @@ namespace StandardProgrammingAssistant.JoinTable
                     MessageBox.Show("Please fill the empty fields");
                 }
             }
+            ExecuteStoredProcedure();
+            MessageBox.Show("Join Created!");
         }
 
         private void button1_Click(object sender, EventArgs e)
