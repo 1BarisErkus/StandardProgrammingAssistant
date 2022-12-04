@@ -892,6 +892,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                         textBoxCsharp.Clear();
                         textBoxCsharp.AppendText("The C# file was created on the desktop : .cs");
 
+                        MessageBox.Show("Files saved to desktop");
                     }
                     else if (comboFilePrefences.SelectedIndex == 1)
                     {
@@ -903,6 +904,8 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
                         textBoxFlutter.Clear();
                         textBoxFlutter.AppendText("The Flutter file was created on the desktop : .dart");
+
+                        MessageBox.Show("File saved to desktop");
                     }
                     else if (comboFilePrefences.SelectedIndex == 2)
                     {
@@ -913,6 +916,8 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
                             textBoxCsharp.Clear();
                             textBoxCsharp.AppendText("The C# file was created on the desktop : .cs");
+
+                        MessageBox.Show("File saved to desktop");
                     }
                     else
                     {
@@ -1242,6 +1247,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                             MessageBox.Show("Please select Flutter , C# or Both");
                         }
                     }
+                    MessageBox.Show("Files saved to desktop");
                 }
                 else
                 {

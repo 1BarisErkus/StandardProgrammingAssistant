@@ -312,6 +312,41 @@ namespace StandardProgrammingAssistant.JoinTable
                     break;
             }
         }
+        void WritetoTextBoxSp()
+        {
+            string table1 = comboTable1.SelectedItem.ToString();
+            string table2 = comboTable2.SelectedItem.ToString();
+            string table3 = "";
+            string table4 = "";
+            string table5 = "";
+            string spJoin = "CREATE OR ALTER PROCEDURE " + table1 + "w" + table2 + "";
+
+            if (numericNumberofTable.Value == 3)
+            {
+                table3 = comboTable3.SelectedItem.ToString();
+                spJoin += "w" + table3 + "";
+            }
+            else if (numericNumberofTable.Value == 4)
+            {
+                table3 = comboTable3.SelectedItem.ToString();
+                table4 = comboTable4.SelectedItem.ToString();
+                spJoin += "w" + table3 + "w" + table4 + "";
+            }
+            else if (numericNumberofTable.Value == 5)
+            {
+                table3 = comboTable3.SelectedItem.ToString();
+                table4 = comboTable4.SelectedItem.ToString();
+                table5 = comboTable5.SelectedItem.ToString();
+                spJoin += "w" + table3 + "w" + table4 + "w" + table5 + "";
+            }
+            spJoin += Environment.NewLine + "AS" 
+                + Environment.NewLine 
+                + "BEGIN" + Environment.NewLine 
+                + sqlJoin + Environment.NewLine 
+                + "END";
+
+            textBoxExecuteSp.Text = spJoin;
+        }
         void createFolder(string folderName)
         {
             string path;
@@ -349,6 +384,46 @@ namespace StandardProgrammingAssistant.JoinTable
                 dynamicFilePath += ".sql";
 
                 fileText += textBoxJoinQuery.Text;
+
+                using (FileStream fs = File.Create(dynamicFilePath))
+                {
+                    byte[] info = new UTF8Encoding(true).GetBytes(fileText);
+                    fs.Write(info, 0, info.Length);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        void writeTheFileJoinSp()
+        {
+            try
+            {
+                fileText = "";
+                staticFilePath = "C:\\Users\\" + Environment.MachineName + "\\Desktop\\Joins";
+                staticFilePath += "\\" + comboTable1.Text + "JOIN" + comboTable2.Text;
+                string dynamicFilePath = staticFilePath;
+
+                if (numericNumberofTable.Value == 3)
+                {
+                    dynamicFilePath = staticFilePath;
+                    dynamicFilePath += "JOIN" + comboTable3.Text;
+                }
+                else if (numericNumberofTable.Value == 4)
+                {
+                    dynamicFilePath = staticFilePath;
+                    dynamicFilePath += "JOIN" + comboTable3.Text + "JOIN" + comboTable4.Text;
+                }
+                else if (numericNumberofTable.Value == 5)
+                {
+                    dynamicFilePath = staticFilePath;
+                    dynamicFilePath = "JOIN" + comboTable3.Text + "JOIN" + comboTable4.Text + "JOIN" + comboTable5.Text;
+                }
+
+                dynamicFilePath += "SP.sql";
+
+                fileText += textBoxExecuteSp.Text;
 
                 using (FileStream fs = File.Create(dynamicFilePath))
                 {
@@ -590,6 +665,7 @@ namespace StandardProgrammingAssistant.JoinTable
                     && comboTable2Columns.SelectedIndex != -1)
                 {
                     WritetoTextBoxJoin();
+                    WritetoTextBoxSp();
                     btnWriteonDesktop.Enabled = true;
                 }
                 else
@@ -604,6 +680,7 @@ namespace StandardProgrammingAssistant.JoinTable
                     && comboTable3Columns.SelectedIndex != -1)
                 {
                     WritetoTextBoxJoin();
+                    WritetoTextBoxSp();
                     btnWriteonDesktop.Enabled = true;
                 }
                 else
@@ -619,6 +696,7 @@ namespace StandardProgrammingAssistant.JoinTable
                     && comboTable4Columns.SelectedIndex != -1)
                 {
                     WritetoTextBoxJoin();
+                    WritetoTextBoxSp();
                     btnWriteonDesktop.Enabled = true;
                 }
                 else
@@ -634,6 +712,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 && comboTable4Columns.SelectedIndex != -1 && comboTable5Columns.SelectedIndex != -1)
                 {
                     WritetoTextBoxJoin();
+                    WritetoTextBoxSp();
                     btnWriteonDesktop.Enabled = true;
                 }
                 else
@@ -651,7 +730,8 @@ namespace StandardProgrammingAssistant.JoinTable
                 {
                     createFolder("Joins");
                     writeTheFileJoin();
-                    MessageBox.Show("File saved to desktop");
+                    writeTheFileJoinSp();
+                    MessageBox.Show("Files saved to desktop");
                 }
                 else
                 {

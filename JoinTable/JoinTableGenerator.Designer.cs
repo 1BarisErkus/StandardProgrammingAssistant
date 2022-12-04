@@ -510,7 +510,7 @@
             this.textBoxExecuteSp.Location = new System.Drawing.Point(-1, 0);
             this.textBoxExecuteSp.Multiline = true;
             this.textBoxExecuteSp.Name = "textBoxExecuteSp";
-            this.textBoxExecuteSp.Size = new System.Drawing.Size(727, 263);
+            this.textBoxExecuteSp.Size = new System.Drawing.Size(727, 231);
             this.textBoxExecuteSp.TabIndex = 0;
             // 
             // JoinTableGenerator

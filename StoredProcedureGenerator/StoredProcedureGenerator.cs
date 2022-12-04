@@ -46,7 +46,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
 
         string fileText = "";
         string filePath = "";
-        
+
 
         int connectionType = -1;
 
@@ -257,6 +257,15 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
+        void createFolder(string folderName)
+        {
+            string path;
+
+            path = "C:\\Users\\" + Environment.MachineName + "\\Desktop\\";
+            var folder = Path.Combine(path, folderName);
+
+            Directory.CreateDirectory(folder);
+        }
         void Writeto_textBoxSelectSearch()
         {
             textBoxSelectwText.AppendText("/* select_search */" + Environment.NewLine);
@@ -288,7 +297,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
             textBoxDelete.AppendText("END");
         }
         void Writeto_textBoxUpdate()
-        { // yapýlacak
+        {
             string identifyColumn = "";
             int size;
 
@@ -298,7 +307,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
 
             for (int i = 0; i < totalColumnCount; i++)
             {
-                if (listColumn[i] == "Id")
+                if (listColumn[i] == "Id" || listColumn[i] == "ID")
                     continue;
 
                 identifyColumn = "@";
@@ -475,7 +484,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
             string setColumn = "";
             for (int i = 0; i < totalColumnCount; i++)
             {
-                if (listColumn[i] == "Id")
+                if (listColumn[i] == "Id" || listColumn[i] == "ID")
                     continue;
 
                 setColumn = SelectedTable + "." + listColumn[i];
@@ -505,7 +514,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
             textBoxInsert.AppendText("CREATE OR ALTER PROCEDURE [dbo].[I_" + SelectedTable + "]" + Environment.NewLine);
             for (int i = 0; i < totalColumnCount; i++)
             {
-                if (listColumn[i] == "Id")
+                if (listColumn[i] == "Id" || listColumn[i] == "ID")
                     continue;
 
                 identifyColumn = "@";
@@ -669,7 +678,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
             string setColumn = "";
             for (int i = 0; i < totalColumnCount; i++)
             {
-                if (listColumn[i] == "Id")
+                if (listColumn[i] == "Id" || listColumn[i] == "ID")
                     continue;
 
                 //setColumn = "[";
@@ -690,7 +699,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
             textBoxInsert.AppendText(Environment.NewLine + "VALUES(" + Environment.NewLine);
             for (int i = 0; i < totalColumnCount; i++)
             {
-                if (listColumn[i] == "Id")
+                if (listColumn[i] == "Id" || listColumn[i] == "ID")
                     continue;
 
                 identifyColumn = "@";
@@ -767,24 +776,30 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
         {
             try
             {
+
                 fileText = "";
                 filePath = "C:\\Users\\" + Environment.MachineName + "\\Desktop\\StoredProcedures";
 
                 filePath += "\\" + tableName + ".sql";
 
                 fileText += "USE [" + SelectedDb + "]" + Environment.NewLine;
+                fileText += "GO" + Environment.NewLine;
                 fileText += textBoxSelectwId.Text;
                 fileText += Environment.NewLine + Environment.NewLine;
 
+                fileText += "GO" + Environment.NewLine;
                 fileText += textBoxSelectwText.Text;
                 fileText += Environment.NewLine + Environment.NewLine;
 
+                fileText += "GO" + Environment.NewLine;
                 fileText += textBoxDelete.Text;
                 fileText += Environment.NewLine + Environment.NewLine;
 
+                fileText += "GO" + Environment.NewLine;
                 fileText += textBoxInsert.Text;
                 fileText += Environment.NewLine + Environment.NewLine;
 
+                fileText += "GO" + Environment.NewLine;
                 fileText += textBoxUpdate.Text;
 
                 using (FileStream fs = File.Create(filePath))
@@ -807,7 +822,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
 
                 filePath += "\\" + "Exec" + tableName + ".sql";
 
-                fileText += "USE [" + SelectedDb + Environment.NewLine;
+                fileText += "USE [" + SelectedDb + "]" + Environment.NewLine;
 
                 fileText += textBoxExecuteSp.Text;
 
@@ -822,8 +837,41 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
+        void ExecuteQuery(string query, SqlConnection sqlConn)
+        {
+            sqlConn.Execute(query);
+        }
+        void ExecuteStoredProcedure()
+        {
+            GetColumnsCountSelectedTable();
+            GetColumnsforSelectedTable();
+            GetDataTypesforSelectedTable();
+            GetDataTypeSizeforSelectedTable();
+
+            Writeto_textBoxSelectSearch();
+            Writeto_textBoxSelectId();
+            Writeto_textBoxUpdate();
+            Writeto_textBoxDelete();
+            Writeto_textBoxInsert();
 
 
+            using (var sqlConn = new SqlConnection(connectionStringforSelectedDB))
+            {
+                ExecuteQuery(textBoxSelectwText.Text, sqlConn);
+                ExecuteQuery(textBoxSelectwId.Text, sqlConn);
+                ExecuteQuery(textBoxDelete.Text, sqlConn);
+                ExecuteQuery(textBoxUpdate.Text, sqlConn);
+                ExecuteQuery(textBoxInsert.Text, sqlConn);
+            }
+        }
+        void ClearTextBoxs()
+        {
+            textBoxSelectwText.Text = "";
+            textBoxSelectwId.Text = "";
+            textBoxDelete.Text = "";
+            textBoxUpdate.Text = "";
+            textBoxInsert.Text = "";
+        }
         public StoredProcedureGenerator()
         {
             InitializeComponent();
@@ -887,108 +935,133 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
             }
         }
 
-        void createFolder(string folderName)
-        {
-            string path;
-
-            path = "C:\\Users\\" + Environment.MachineName + "\\Desktop\\";
-            var folder = Path.Combine(path, folderName);
-
-            Directory.CreateDirectory(folder);
-        }
-
         private void btnSelectedTable_Click(object sender, EventArgs e)
         {
             try
             {
-                    if (comboTable.SelectedItem != null)
-                    {
-                        tableName = comboTable.SelectedItem.ToString();
-                        createFolder("StoredProcedures");
-                        WriteTheFileStoredProcedure(tableName);
-                        WriteTheFileExecuteProcedure(tableName);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Please select a table.");
-                    }
+                ClearTextBoxs();
+                if (comboTable.SelectedItem != null)
+                {
+                    SelectedTable = comboTable.SelectedItem.ToString();
+                    ExecuteStoredProcedure();
+
+                    MessageBox.Show("Created Procedures!");
+                }
+                else
+                {
+                    MessageBox.Show("Please select a table.");
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-        
-        private void btnAllTable_Click(object sender, EventArgs e)
-        {
-            if (comboDb.SelectedItem != null)
-            {
-                for (int i = 0; i < comboTable.Items.Count; i++)
-                {
-                    tableName = comboTable.Items[i].ToString();
-                    createFolder("StoredProcedures");
-                    WriteTheFileStoredProcedure(tableName);
-                    WriteTheFileExecuteProcedure(tableName);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select a database.");
-            }
-            
-        }
 
-        private void btnCreateAllProcedure_Click(object sender, EventArgs e)
+        private void btnAllTable_Click(object sender, EventArgs e)
         {
             try
             {
-                /// Veritabaný seçildikten sonra 
-                if (SelectedDb != null)
+                ClearTextBoxs();
+                if (comboDb.SelectedItem != null)
                 {
-                    /// Seçilen veritabaný için tablolara ait tüm CRUD'larý textlere yazmak istiyorum
-                    for (int i = 0; i < listTables.Count; i++)
+                    for (int i = 0; i < comboTable.Items.Count; i++)
                     {
                         SelectedTable = listTables[i];
-                        GetColumnsCountSelectedTable();
-                        GetColumnsforSelectedTable();
-                        GetDataTypesforSelectedTable();
-                        GetDataTypeSizeforSelectedTable();
+                        ExecuteStoredProcedure();
 
-                        Writeto_textBoxSelectSearch();
-                        Writeto_textBoxSelectId();
-                        Writeto_textBoxDelete();
-                        Writeto_textBoxUpdate();
-                        Writeto_textBoxInsert();
-                        using (var sqlConn = new SqlConnection(connectionStringforSelectedDB))
+                        if (i != comboTable.Items.Count - 1)
                         {
-                            ExecuteQuery(textBoxSelectwText.Text, sqlConn);
-                            ExecuteQuery(textBoxSelectwId.Text, sqlConn);
-                            ExecuteQuery(textBoxDelete.Text, sqlConn);
-                            ExecuteQuery(textBoxUpdate.Text, sqlConn);
-                            ExecuteQuery(textBoxInsert.Text, sqlConn);
+                            ClearTextBoxs();
                         }
-                        textBoxSelectwText.Text = "";
-                        textBoxSelectwId.Text = "";
-                        textBoxDelete.Text = "";
-                        textBoxUpdate.Text = "";
-                        textBoxInsert.Text = "";
+                        else
+                        {
+                            textBoxSelectwText.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
+                            textBoxSelectwId.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
+                            textBoxDelete.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
+                            textBoxUpdate.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
+                            textBoxInsert.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
+                        }
+
                     }
-                    textBoxSelectwText.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
-                    textBoxSelectwId.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
-                    textBoxDelete.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
-                    textBoxUpdate.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
-                    textBoxInsert.Text = "Created the procedures(Add x Delete x Update x Select x SelectSpecific) for selected database";
+                    MessageBox.Show("Created Procedures!");
+                }
+                else
+                {
+                    MessageBox.Show("Please select a database.");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Hata: " + ex.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
-        void ExecuteQuery(string query, SqlConnection sqlConn)
+        private void StoredProcedureGenerator_Load(object sender, EventArgs e)
         {
-            sqlConn.Execute(query);
+            try
+            {
+                //trySqlServerConnection();
+                //trySqliteConnection();
+
+                getSystemDbsCount();
+                getAllDbsName();
+                addDbNametoCombobox();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Localhost-Master.db baðlantýsý yapýlamadý.");
+            }
+        }
+
+        private void btnWriteforSelectedTable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (comboTable.SelectedItem != null)
+                {
+                    tableName = comboTable.SelectedItem.ToString();
+                    createFolder("StoredProcedures");
+                    WriteTheFileStoredProcedure(tableName);
+                    WriteTheFileExecuteProcedure(tableName);
+                    MessageBox.Show("Files saved to desktop");
+                }
+
+                else
+                {
+                    MessageBox.Show("Please select a table.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btnWriteforSelectedDatabase_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (comboDb.SelectedItem != null)
+                {
+                    for (int i = 0; i < comboTable.Items.Count; i++)
+                    {
+                        tableName = comboTable.Items[i].ToString();
+                        createFolder("StoredProcedures");
+                        WriteTheFileStoredProcedure(tableName);
+                        WriteTheFileExecuteProcedure(tableName);
+                    }
+                    MessageBox.Show("Files saved to desktop");
+                }
+                else
+                {
+                    MessageBox.Show("Please select a database.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         #region Experimental Features
@@ -1065,21 +1138,5 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
         }
         #endregion
 
-        private void StoredProcedureGenerator_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                //trySqlServerConnection();
-                //trySqliteConnection();
-
-                getSystemDbsCount();
-                getAllDbsName();
-                addDbNametoCombobox();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Localhost-Master.db baðlantýsý yapýlamadý.");
-            }
-        }
     }
 }

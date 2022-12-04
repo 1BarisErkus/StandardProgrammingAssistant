@@ -36,6 +36,8 @@
             this.lblDatabase = new System.Windows.Forms.Label();
             this.comboDb = new System.Windows.Forms.ComboBox();
             this.gboxWrite = new System.Windows.Forms.GroupBox();
+            this.btnWriteforSelectedDatabase = new System.Windows.Forms.Button();
+            this.btnWriteforSelectedTable = new System.Windows.Forms.Button();
             this.btnAllTable = new System.Windows.Forms.Button();
             this.btnSelectedTable = new System.Windows.Forms.Button();
             this.gboxIfYouHave = new System.Windows.Forms.GroupBox();
@@ -140,6 +142,8 @@
             // 
             // gboxWrite
             // 
+            this.gboxWrite.Controls.Add(this.btnWriteforSelectedDatabase);
+            this.gboxWrite.Controls.Add(this.btnWriteforSelectedTable);
             this.gboxWrite.Controls.Add(this.btnAllTable);
             this.gboxWrite.Controls.Add(this.btnSelectedTable);
             this.gboxWrite.Location = new System.Drawing.Point(301, 12);
@@ -149,11 +153,31 @@
             this.gboxWrite.TabStop = false;
             this.gboxWrite.Text = "Write the file on desktop";
             // 
+            // btnWriteforSelectedDatabase
+            // 
+            this.btnWriteforSelectedDatabase.Location = new System.Drawing.Point(6, 173);
+            this.btnWriteforSelectedDatabase.Name = "btnWriteforSelectedDatabase";
+            this.btnWriteforSelectedDatabase.Size = new System.Drawing.Size(245, 45);
+            this.btnWriteforSelectedDatabase.TabIndex = 3;
+            this.btnWriteforSelectedDatabase.Text = "Write All Procedure For Selected Database on Desktop";
+            this.btnWriteforSelectedDatabase.UseVisualStyleBackColor = true;
+            this.btnWriteforSelectedDatabase.Click += new System.EventHandler(this.btnWriteforSelectedDatabase_Click);
+            // 
+            // btnWriteforSelectedTable
+            // 
+            this.btnWriteforSelectedTable.Location = new System.Drawing.Point(6, 122);
+            this.btnWriteforSelectedTable.Name = "btnWriteforSelectedTable";
+            this.btnWriteforSelectedTable.Size = new System.Drawing.Size(245, 45);
+            this.btnWriteforSelectedTable.TabIndex = 2;
+            this.btnWriteforSelectedTable.Text = "Write Procedure For Selected Table on Desktop";
+            this.btnWriteforSelectedTable.UseVisualStyleBackColor = true;
+            this.btnWriteforSelectedTable.Click += new System.EventHandler(this.btnWriteforSelectedTable_Click);
+            // 
             // btnAllTable
             // 
-            this.btnAllTable.Location = new System.Drawing.Point(6, 129);
+            this.btnAllTable.Location = new System.Drawing.Point(6, 71);
             this.btnAllTable.Name = "btnAllTable";
-            this.btnAllTable.Size = new System.Drawing.Size(245, 63);
+            this.btnAllTable.Size = new System.Drawing.Size(245, 45);
             this.btnAllTable.TabIndex = 1;
             this.btnAllTable.Text = "Create All Procedure For Selected Database";
             this.btnAllTable.UseVisualStyleBackColor = true;
@@ -161,9 +185,9 @@
             // 
             // btnSelectedTable
             // 
-            this.btnSelectedTable.Location = new System.Drawing.Point(6, 39);
+            this.btnSelectedTable.Location = new System.Drawing.Point(6, 20);
             this.btnSelectedTable.Name = "btnSelectedTable";
-            this.btnSelectedTable.Size = new System.Drawing.Size(245, 63);
+            this.btnSelectedTable.Size = new System.Drawing.Size(245, 45);
             this.btnSelectedTable.TabIndex = 0;
             this.btnSelectedTable.Text = "Create Procedure For Selected Table";
             this.btnSelectedTable.UseVisualStyleBackColor = true;
@@ -367,5 +391,7 @@
         private System.Windows.Forms.TextBox textBoxUpdate;
         private System.Windows.Forms.TextBox textBoxInsert;
         private System.Windows.Forms.TextBox textBoxExecuteSp;
+        private System.Windows.Forms.Button btnWriteforSelectedDatabase;
+        private System.Windows.Forms.Button btnWriteforSelectedTable;
     }
 }
