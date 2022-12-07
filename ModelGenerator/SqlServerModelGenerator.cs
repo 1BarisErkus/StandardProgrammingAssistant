@@ -350,7 +350,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
             {
                 for (int i = 0; i < totalColumnCount; i++)
                 {
-                    textBoxCsharp.AppendText("\t\tprivate ");
+                    textBoxCsharp.AppendText("\tprivate ");
 
                     if (listDataType[i].Contains("char"))
                     {
@@ -444,6 +444,46 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
+        void EditAndWritetoTypescriptTextBox()
+        {
+            try
+            {
+                for (int i = 0; i < totalColumnCount; i++)
+                {
+                    textBoxTypescript.AppendText("\t");
+
+                    if (listDataType[i].Contains("char"))
+                    {
+                        textBoxTypescript.AppendText(listColumn[i]);
+                        textBoxTypescript.AppendText(": string");
+                        textBoxTypescript.AppendText(" = \"\";");
+
+                    }
+                    else if (listDataType[i].Contains("int"))
+                    {
+                        textBoxTypescript.AppendText(listColumn[i]);
+                        textBoxTypescript.AppendText(": number");
+                        textBoxTypescript.AppendText(" = -2;");
+                    }
+                    else if (listDataType[i].Contains("datetime"))
+                    {
+                        textBoxTypescript.AppendText(listColumn[i]);
+                        textBoxTypescript.AppendText(": Date");
+                        textBoxTypescript.AppendText(" = new Date();");
+                    }
+                    else
+                    {
+
+                    }
+                    textBoxTypescript.AppendText(Environment.NewLine);
+                }
+                EncapsulationTypescript();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         void EncapsulationCSharp()
         {
             try
@@ -452,55 +492,55 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 {
                     if (listDataType[i].Contains("char"))
                     {
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\tpublic string get" + listColumn[i] + "()" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t{" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t\t");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\tpublic string get" + listColumn[i] + "()" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t{" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t\t");
                         textBoxCsharp.AppendText("return this." + listColumn[i] + ";");
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\t}");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\t}");
 
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\tpublic void set" + listColumn[i] + "(string " + listColumn[i] + ")" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t{" + Environment.NewLine + "\t\t\t");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\tpublic void set" + listColumn[i] + "(string " + listColumn[i] + ")" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t{" + Environment.NewLine + "\t\t");
                         textBoxCsharp.AppendText("this." + listColumn[i] + " = " + listColumn[i] + ";" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t}");
+                        textBoxCsharp.AppendText("\t}");
                     }
                     else if (listDataType[i].Contains("int"))
                     {
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\tpublic int get" + listColumn[i] + "()" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t{" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t\t");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\tpublic int get" + listColumn[i] + "()" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t{" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t\t");
                         textBoxCsharp.AppendText("return this." + listColumn[i] + ";");
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\t}");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\t}");
 
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\tpublic void set" + listColumn[i] + "(int " + listColumn[i] + ")" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t{" + Environment.NewLine + "\t\t\t");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\tpublic void set" + listColumn[i] + "(int " + listColumn[i] + ")" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t{" + Environment.NewLine + "\t\t");
                         textBoxCsharp.AppendText("this." + listColumn[i] + " = " + listColumn[i] + ";" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t}");
+                        textBoxCsharp.AppendText("\t}");
                     }
                     else if (listDataType[i].Contains("datetime"))
                     {
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\tpublic DateTime get" + listColumn[i] + "()" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t{" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t\t");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\tpublic DateTime get" + listColumn[i] + "()" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t{" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t\t");
                         textBoxCsharp.AppendText("return this." + listColumn[i] + ";");
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\t}");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\t}");
 
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\tpublic void set" + listColumn[i] + "(DateTime " + listColumn[i] + ")" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t{" + Environment.NewLine + "\t\t\t");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\tpublic void set" + listColumn[i] + "(DateTime " + listColumn[i] + ")" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t{" + Environment.NewLine + "\t\t");
                         textBoxCsharp.AppendText("this." + listColumn[i] + " = " + listColumn[i] + ";" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t}");
+                        textBoxCsharp.AppendText("\t}");
                     }
                     else if (listDataType[i].Contains("varbinary"))
                     {
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\tpublic byte[] get" + listColumn[i] + "()" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t{" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t\t");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\tpublic byte[] get" + listColumn[i] + "()" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t{" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t\t");
                         textBoxCsharp.AppendText("return this." + listColumn[i] + ";");
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\t}");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\t}");
 
-                        textBoxCsharp.AppendText(Environment.NewLine + "\t\tpublic void set" + listColumn[i] + "(byte[] " + listColumn[i] + ")" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t{" + Environment.NewLine + "\t\t\t");
+                        textBoxCsharp.AppendText(Environment.NewLine + "\tpublic void set" + listColumn[i] + "(byte[] " + listColumn[i] + ")" + Environment.NewLine);
+                        textBoxCsharp.AppendText("\t{" + Environment.NewLine + "\t\t");
                         textBoxCsharp.AppendText("this." + listColumn[i] + " = " + listColumn[i] + ";" + Environment.NewLine);
-                        textBoxCsharp.AppendText("\t\t}");
+                        textBoxCsharp.AppendText("\t}");
                     }
                     else
                     {
@@ -573,6 +613,59 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
                     }
                     textBoxFlutter.AppendText(Environment.NewLine);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        void EncapsulationTypescript()
+        {
+            try
+            {
+                for (int i = 0; i < totalColumnCount; i++)
+                {
+                    if (listDataType[i].Contains("char"))
+                    {
+                        textBoxTypescript.AppendText(Environment.NewLine + "\tget" + listColumn[i] + "(): string" + Environment.NewLine);
+                        textBoxTypescript.AppendText("\t{" + Environment.NewLine + "\t\t");
+                        textBoxTypescript.AppendText("return this." + listColumn[i] + ";");
+                        textBoxTypescript.AppendText(Environment.NewLine + "\t}");
+
+                        textBoxTypescript.AppendText(Environment.NewLine + "\tset" + listColumn[i] + "(" + listColumn[i] + ": string): void" + Environment.NewLine);
+                        textBoxTypescript.AppendText("\t{" + Environment.NewLine + "\t\t");
+                        textBoxTypescript.AppendText("this." + listColumn[i] + " = " + listColumn[i] + ";");
+                        textBoxTypescript.AppendText(Environment.NewLine + "\t}");
+                    }
+                    else if (listDataType[i].Contains("int"))
+                    {
+                        textBoxTypescript.AppendText(Environment.NewLine + "\tget" + listColumn[i] + "(): number" + Environment.NewLine);
+                        textBoxTypescript.AppendText("\t{" + Environment.NewLine + "\t\t");
+                        textBoxTypescript.AppendText("return this." + listColumn[i] + ";");
+                        textBoxTypescript.AppendText(Environment.NewLine + "\t}");
+
+                        textBoxTypescript.AppendText(Environment.NewLine + "\tset" + listColumn[i] + "(" + listColumn[i] + ": number): void" + Environment.NewLine);
+                        textBoxTypescript.AppendText("\t{" + Environment.NewLine + "\t\t");
+                        textBoxTypescript.AppendText("this." + listColumn[i] + " = " + listColumn[i] + ";");
+                        textBoxTypescript.AppendText(Environment.NewLine + "\t}");
+                    }
+                    else if (listDataType[i].Contains("datetime"))
+                    {
+                        textBoxTypescript.AppendText(Environment.NewLine + "\tget" + listColumn[i] + "(): Date" + Environment.NewLine);
+                        textBoxTypescript.AppendText("\t{" + Environment.NewLine + "\t\t");
+                        textBoxTypescript.AppendText("return this." + listColumn[i] + ";");
+                        textBoxTypescript.AppendText(Environment.NewLine + "\t}");
+
+                        textBoxTypescript.AppendText(Environment.NewLine + "\tset" + listColumn[i] + "(" + listColumn[i] + ": Date): void" + Environment.NewLine);
+                        textBoxTypescript.AppendText("\t{" + Environment.NewLine + "\t\t");
+                        textBoxTypescript.AppendText("this." + listColumn[i] + " = " + listColumn[i] + ";");
+                        textBoxTypescript.AppendText(Environment.NewLine + "\t}");
+                    }
+                    else
+                    {
+                    }
+                    textBoxTypescript.AppendText(Environment.NewLine);
                 }
             }
             catch (Exception ex)
@@ -679,6 +772,42 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
+        void WritetoFileforTypescript()
+        {
+            makeSelectedTableSingular(SelectedTable);
+            try
+            {
+                fileText = "";
+                filePath = "C:\\Users\\";
+
+                if (clientOS_Win_Version.Contains("11."))
+                {
+                    filePath += Environment.MachineName + "\\OneDrive\\Desktop";
+                }
+                else
+                {
+                    filePath += Environment.MachineName + "\\Desktop\\TypeScript";
+                }
+
+                filePath += "\\" + selectedTableSingular + ".ts";
+
+                fileText += "\texport class " + selectedTableSingular + Environment.NewLine;
+                fileText += "\t{" + Environment.NewLine;
+                fileText += textBoxTypescript.Text;
+                fileText += "\t}" + Environment.NewLine;
+
+                using (FileStream fs = File.Create(filePath))
+                {
+                    byte[] info = new UTF8Encoding(true).GetBytes(fileText);
+                    // Add some information to the file.
+                    fs.Write(info, 0, info.Length);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         void ShowPassword()
         {
             try
@@ -751,7 +880,6 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 else if (selectedTableSingular.EndsWith("s") || selectedTableSingular.EndsWith("S"))
                 {
                     selectedTableSingular = selectedTableSingular.Substring(0, selectedTableSingular.Length - 1);
-
                 }
                 else
                 {
@@ -847,6 +975,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 pictureTable.Visible = false;
                 textBoxCsharp.Clear();
                 textBoxFlutter.Clear();
+                textBoxTypescript.Clear();
 
                 if (comboTable.SelectedItem != null && comboTable.SelectedItem != "")
                 {
@@ -857,6 +986,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                     GetDataTypesforSelectedTable();
                     EditAndWritetoCSharpTextBox();
                     EditAndWritetoFlutterTextBox();
+                    EditAndWritetoTypescriptTextBox();
 
                     pictureTable.Visible = true;
                 }
@@ -878,19 +1008,32 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 // 0:both 1:flutter 2:csharp
                 if (comboTable.Text != null && comboTable.Text != "")
                 {
+                    textBoxCsharp.Clear();
+                    textBoxFlutter.Clear();
+                    textBoxTypescript.Clear();
+
                     if (comboFilePrefences.SelectedIndex == 0)
                     {
                         createFolder("Csharp");
                         createFolder("Flutter");
+                        createFolder("TypeScript");
+
+                        EditAndWritetoCSharpTextBox();
+                        EditAndWritetoFlutterTextBox();
+                        EditAndWritetoTypescriptTextBox();
 
                         WritetoFileforCsharp();
                         WritetoFileforFlutter();
+                        WritetoFileforTypescript();
 
                         textBoxFlutter.Clear();
                         textBoxFlutter.AppendText("The Flutter file was created on the desktop : .dart");
 
                         textBoxCsharp.Clear();
                         textBoxCsharp.AppendText("The C# file was created on the desktop : .cs");
+
+                        textBoxTypescript.Clear();
+                        textBoxTypescript.AppendText("The TypeScript file was created on the dektop : .ts");
 
                         MessageBox.Show("Files saved to desktop");
                     }
@@ -900,6 +1043,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
                         tabControl1.SelectedTab = tabControl1.TabPages["tabPage2"];
 
+                        EditAndWritetoFlutterTextBox();
                         WritetoFileforFlutter();
 
                         textBoxFlutter.Clear();
@@ -910,18 +1054,32 @@ namespace StandardProgrammingAssistant.ModelGenerator
                     else if (comboFilePrefences.SelectedIndex == 2)
                     {
                         createFolder("Csharp");
-                            tabControl1.SelectedTab = tabControl1.TabPages["tabPage1"];
+                        tabControl1.SelectedTab = tabControl1.TabPages["tabPage1"];
 
-                            WritetoFileforCsharp();
+                        EditAndWritetoCSharpTextBox();
+                        WritetoFileforCsharp();
 
-                            textBoxCsharp.Clear();
-                            textBoxCsharp.AppendText("The C# file was created on the desktop : .cs");
+                        textBoxCsharp.Clear();
+                        textBoxCsharp.AppendText("The C# file was created on the desktop : .cs");
+
+                        MessageBox.Show("File saved to desktop");
+                    }
+                    else if (comboFilePrefences.SelectedIndex == 3)
+                    {
+                        createFolder("TypeScript");
+                        tabControl1.SelectedTab = tabControl1.TabPages["tabPage3"];
+
+                        EditAndWritetoTypescriptTextBox();
+                        WritetoFileforTypescript();
+
+                        textBoxTypescript.Clear();
+                        textBoxTypescript.AppendText("The TypeScript file was created on the desktop : .ts");
 
                         MessageBox.Show("File saved to desktop");
                     }
                     else
                     {
-                        MessageBox.Show("Please select Flutter , C# or Both");
+                        MessageBox.Show("Please select Flutter , C#, TypeScript or All");
                     }
                 }
                 else
@@ -945,62 +1103,21 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 {
                     for (int i = 0; i < totalTableCount; i++)
                     {
+                        SelectedTable = comboTable.Items[i].ToString();
+
                         textBoxCsharp.Clear();
                         textBoxFlutter.Clear();
+                        textBoxTypescript.Clear();
                         initialCatalog = ";initial catalog=" + SelectedDb;
 
                         //  getTotalColumnCount
-                        using (var connection = new SqlConnection(connectionString))
-                        {
-                            var sql = @"SELECT COUNT(*)
-                                    FROM sys.tables AS tab
-                                        LEFT JOIN sys.columns AS col
-                                            ON tab.object_id = col.object_id
-                                    WHERE tab.name = @TABLE_NAME";
-
-                            var prms = new
-                            {
-                                TABLE_NAME = listTables[i]
-                            };
-
-                            totalColumnCount = connection.QuerySingle<int>(sql, prms);
-                        }
+                        GetColumnsCountSelectedTable();
 
                         //  getColumnList
-                        using (var connection = new SqlConnection(connectionString))
-                        {
-                            var sql = @"SELECT col.name AS KolonAdi,
-                                            t.name AS VeriTipi
-                                    FROM sys.tables AS tab
-                                        INNER JOIN sys.columns AS col
-                                            ON tab.object_id = col.object_id
-                                        LEFT JOIN sys.types AS t
-                                            ON col.user_type_id = t.user_type_id
-                                            WHERE tab.name = @TABLE_NAME";
-                            var prms = new
-                            {
-                                TABLE_NAME = listTables[i]
-                            };
-                            listColumn = connection.Query<string>(sql, prms).ToList();
-                        }
+                        GetColumnsforSelectedTable();
 
                         //  getColumnDataType
-                        using (var connection = new SqlConnection(connectionString))
-                        {
-                            var sql = @"SELECT t.name AS VeriTipi
-                                    FROM sys.tables AS tab
-                                        INNER JOIN sys.columns AS col
-                                            ON tab.object_id = col.object_id
-                                        LEFT JOIN sys.types AS t
-                                            ON col.user_type_id = t.user_type_id
-                                            WHERE tab.name = @TABLE_NAME";
-                            var prms = new
-                            {
-                                TABLE_NAME = listTables[i]
-                            };
-
-                            listDataType = connection.Query<string>(sql, prms).ToList();
-                        }
+                        GetDataTypesforSelectedTable();
 
                         void EditAndWritetoCSharpTextBox()
                         {
@@ -1107,6 +1224,48 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
                         }
 
+                        void EditAndWritetoTypeScriptTextBox()
+                        {
+                            try
+                            {
+                                for (int m = 0; m < totalColumnCount; m++)
+                                {
+                                    textBoxTypescript.AppendText("\t");
+
+                                    if (listDataType[m].Contains("char"))
+                                    {
+                                        textBoxTypescript.AppendText(listColumn[m]);
+                                        textBoxTypescript.AppendText(": string");
+                                        textBoxTypescript.AppendText(" = \"\";");
+
+                                    }
+                                    else if (listDataType[m].Contains("int"))
+                                    {
+                                        textBoxTypescript.AppendText(listColumn[m]);
+                                        textBoxTypescript.AppendText(": number");
+                                        textBoxTypescript.AppendText(" = -2;");
+                                    }
+                                    else if (listDataType[m].Contains("datetime"))
+                                    {
+                                        textBoxTypescript.AppendText(listColumn[m]);
+                                        textBoxTypescript.AppendText(": Date");
+                                        textBoxTypescript.AppendText(" = new Date();");
+                                    }
+                                    else
+                                    {
+
+                                    }
+                                    textBoxTypescript.AppendText(Environment.NewLine);
+                                }
+                                EncapsulationTypescript();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+
+                        }
+
                         void WritetoFileCsharpforSelectedDb()
                         {
                             try
@@ -1193,6 +1352,37 @@ namespace StandardProgrammingAssistant.ModelGenerator
                             }
                         }
 
+                        void WritetoFileTypescriptforSelectedDb()
+                        {
+                            try
+                            {
+                                makeSelectedTableSingular(listTables[i]);
+
+                                fileText = "";
+                                filePath = "C:\\Users\\";
+                                filePath += Environment.MachineName + "\\Desktop\\TypeScript";
+                                filePathforUser = filePath;
+                                filePath += "\\" + selectedTableSingular + ".ts";
+
+
+                                fileText += "\texport class " + selectedTableSingular + Environment.NewLine;
+                                fileText += "\t{" + Environment.NewLine;
+                                fileText += textBoxTypescript.Text + Environment.NewLine + Environment.NewLine;
+                                fileText += "\t}" + Environment.NewLine;
+
+                                using (FileStream fs = File.Create(filePath))
+                                {
+                                    byte[] info = new UTF8Encoding(true).GetBytes(fileText);
+                                    // Add some information to the file.
+                                    fs.Write(info, 0, info.Length);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                            }
+                        }
+
                         void WritetoTextBoxCsharpInfo()
                         {
                             textBoxCsharp.Clear();
@@ -1205,26 +1395,36 @@ namespace StandardProgrammingAssistant.ModelGenerator
                             textBoxFlutter.AppendText("The Flutter files were created on the desktop : " + filePathforUser + ".dart");
                         }
 
+                        void WritetoTextBoxTypescriptInfo()
+                        {
+                            textBoxTypescript.Clear();
+                            textBoxTypescript.AppendText("The TypeScript files were created on the desktop : " + filePathforUser + ".ts");
+                        }
+
                         // 0:both 1:flutter 2:csharp
                         if (comboFilePrefences.SelectedIndex == 0)
                         {
                             createFolder("Csharp");
                             createFolder("Flutter");
+                            createFolder("TypeScript");
 
                             EditAndWritetoCSharpTextBox();
                             EditAndWritetoFlutterTextBox();
+                            EditAndWritetoTypeScriptTextBox();
 
                             WritetoFileCsharpforSelectedDb();
                             WritetoFileFlutterforSelectedDb();
+                            WritetoFileTypescriptforSelectedDb();
 
                             WritetoTextBoxFlutterInfo();
                             WritetoTextBoxCsharpInfo();
+                            WritetoTextBoxTypescriptInfo();
                         }
                         else if (comboFilePrefences.SelectedIndex == 1)
                         {
                             createFolder("Flutter");
 
-                            tabControl1.SelectedTab = tabControl1.TabPages["tabPageFlutter"];
+                            tabControl1.SelectedTab = tabControl1.TabPages["tabPage2"];
 
                             EditAndWritetoFlutterTextBox();
                             WritetoFileFlutterforSelectedDb();
@@ -1235,12 +1435,23 @@ namespace StandardProgrammingAssistant.ModelGenerator
                         {
                             createFolder("Csharp");
 
-                            tabControl1.SelectedTab = tabControl1.TabPages["tabPageCsharp"];
+                            tabControl1.SelectedTab = tabControl1.TabPages["tabPage1"];
 
                             EditAndWritetoCSharpTextBox();
                             WritetoFileCsharpforSelectedDb();
 
                             WritetoTextBoxCsharpInfo();
+                        }
+                        else if (comboFilePrefences.SelectedIndex == 3)
+                        {
+                            createFolder("TypeScript");
+
+                            tabControl1.SelectedTab = tabControl1.TabPages["tabPage3"];
+
+                            EditAndWritetoTypeScriptTextBox();
+                            WritetoFileTypescriptforSelectedDb();
+
+                            WritetoTextBoxTypescriptInfo();
                         }
                         else
                         {
