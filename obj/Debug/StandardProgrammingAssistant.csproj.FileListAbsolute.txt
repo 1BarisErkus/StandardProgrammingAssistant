@@ -19,7 +19,6 @@ C:\Center\development\DesktopProjects\StandardProgrammingAssistant\obj\Debug\Sta
 C:\Center\development\DesktopProjects\StandardProgrammingAssistant\obj\Debug\StandardProgrammingAssistant.MainMenu.resources
 C:\Center\development\DesktopProjects\StandardProgrammingAssistant\obj\Debug\StandardProgrammingAssistant.ModelGenerator.SqlServerModelGenerator.resources
 C:\Center\development\DesktopProjects\StandardProgrammingAssistant\obj\Debug\StandardProgrammingAssistant.ModelGenerator.UserGuide.resources
-C:\Center\development\DesktopProjects\StandardProgrammingAssistant\obj\Debug\StandardProgrammingAssistant.ModelGenerator.Versions.resources
 C:\Center\development\DesktopProjects\StandardProgrammingAssistant\obj\Debug\StandardProgrammingAssistant.Properties.Resources.resources
 C:\Center\development\DesktopProjects\StandardProgrammingAssistant\obj\Debug\StandardProgrammingAssistant.StoredProcedureGenerator.StoredProcedureGenerator.resources
 C:\Center\development\DesktopProjects\StandardProgrammingAssistant\obj\Debug\StandardProgrammingAssistant.csproj.GenerateResource.cache

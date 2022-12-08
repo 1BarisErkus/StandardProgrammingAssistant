@@ -22,8 +22,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
     public partial class StoredProcedureGenerator : Form
     {
         /// <summary>
-        /// Hedef client 'SqlLite' ile mi 'SqlServer' ile mi çalýþýyor saptanmasý.
-        /// 
+        /// Hedef client 'SqlLite' ile mi 'SqlServer' ile mi CALİSİYOR SAPTAMASİ.
         /// </summary>
         dynamic dynamicConnection;
 
@@ -47,10 +46,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
         string fileText = "";
         string filePath = "";
 
-
-        int connectionType = -1;
-
-        void getSystemDbsCount()
+        void GetSystemDbsCount()
         {
             try
             {
@@ -70,7 +66,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show("Connection error: " + ex.Message);
             }
         }
-        void getAllDbsName()
+        void GetAllDbsName()
         {
             try
             {
@@ -90,7 +86,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show("Failed to retrieve Db names.");
             }
         }
-        void addDbNametoCombobox()
+        void AddDbNametoCombobox()
         {
             comboDb.Items.Clear();
             for (int i = 0; i < totalDbCount; i++)
@@ -98,7 +94,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 comboDb.Items.Add(listDatabases[i]);
             }
         }
-        void getTableCountforSelectedDb()
+        void GetTableCountforSelectedDb()
         {
             try
             {
@@ -115,7 +111,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void getTablesforSelectedDb()
+        void GetTablesforSelectedDb()
         {
             try
             {
@@ -132,7 +128,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void addTableNametoCombobox()
+        void AddTableNametoCombobox()
         {
             comboTable.Items.Clear();
             try
@@ -147,7 +143,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void clearAllTextBox()
+        void ClearAllTextBox()
         {
             textBoxSelectwText.Clear();
             textBoxSelectwId.Clear();
@@ -257,7 +253,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void createFolder(string folderName)
+        void CreateFolder(string folderName)
         {
             string path;
 
@@ -876,7 +872,6 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
         {
             InitializeComponent();
         }
-
         private void comboDb_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -885,16 +880,16 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 pictureTable.Visible = false;
                 comboTable.Items.Clear();
 
-                clearAllTextBox();
+                ClearAllTextBox();
 
                 if (comboDb.SelectedItem != null)
                 {
                     SelectedDb = comboDb.SelectedItem.ToString();
                     connectionStringforSelectedDB = "data source=localhost; initial catalog=" + SelectedDb + "; MultipleActiveResultSets=true; Trusted_Connection=true;";
 
-                    getTableCountforSelectedDb();
-                    getTablesforSelectedDb();
-                    addTableNametoCombobox();
+                    GetTableCountforSelectedDb();
+                    GetTablesforSelectedDb();
+                    AddTableNametoCombobox();
 
                     pictureDb.Visible = true;
                 }
@@ -909,10 +904,9 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show("Tables could not be retrieved.  " + ex.Message);
             }
         }
-
         private void comboTable_SelectedIndexChanged(object sender, EventArgs e)
         {
-            clearAllTextBox();
+            ClearAllTextBox();
 
             if (comboTable.SelectedItem != null)
             {
@@ -934,7 +928,6 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show("Please select table.");
             }
         }
-
         private void btnSelectedTable_Click(object sender, EventArgs e)
         {
             try
@@ -957,7 +950,6 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void btnAllTable_Click(object sender, EventArgs e)
         {
             try
@@ -996,7 +988,6 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void StoredProcedureGenerator_Load(object sender, EventArgs e)
         {
             try
@@ -1004,16 +995,15 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 //trySqlServerConnection();
                 //trySqliteConnection();
 
-                getSystemDbsCount();
-                getAllDbsName();
-                addDbNametoCombobox();
+                GetSystemDbsCount();
+                GetAllDbsName();
+                AddDbNametoCombobox();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Localhost-Master.db baðlantýsý yapýlamadý.");
             }
         }
-
         private void btnWriteforSelectedTable_Click(object sender, EventArgs e)
         {
             try
@@ -1021,7 +1011,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 if (comboTable.SelectedItem != null)
                 {
                     tableName = comboTable.SelectedItem.ToString();
-                    createFolder("StoredProcedures");
+                    CreateFolder("StoredProcedures");
                     WriteTheFileStoredProcedure(tableName);
                     WriteTheFileExecuteProcedure(tableName);
                     MessageBox.Show("Files saved to desktop");
@@ -1037,7 +1027,6 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-
         private void btnWriteforSelectedDatabase_Click(object sender, EventArgs e)
         {
             try
@@ -1047,7 +1036,7 @@ namespace StandardProgrammingAssistant.StoredProcedureGenerator
                     for (int i = 0; i < comboTable.Items.Count; i++)
                     {
                         tableName = comboTable.Items[i].ToString();
-                        createFolder("StoredProcedures");
+                        CreateFolder("StoredProcedures");
                         WriteTheFileStoredProcedure(tableName);
                         WriteTheFileExecuteProcedure(tableName);
                     }

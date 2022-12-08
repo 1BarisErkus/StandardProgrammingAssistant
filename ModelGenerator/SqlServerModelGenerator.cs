@@ -52,7 +52,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
 
         // Functions
-        void createFolder(string folderName)
+        void CreateFolder(string folderName)
         {
             string newPath = "";
             string path;
@@ -69,11 +69,11 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
             Directory.CreateDirectory(folder);
         }
-        void checkSqlAuth()
+        void CheckSqlAuth()
         {
             try
             {
-                determineConnectionString();
+                DetermineConnectionString();
 
                 using (var connection = new SqlConnection(connectionString))
                 {
@@ -87,8 +87,8 @@ namespace StandardProgrammingAssistant.ModelGenerator
                         comboLogin.ForeColor = Color.Green;
                         comboDb.Enabled = true;
                         comboTable.Enabled = true;
-                        getAllDbsName();
-                        addDbNametoCombobox();
+                        GetAllDbsName();
+                        AddDbNametoCombobox();
                     }
                 }
                 lblConnect.Visible = true;
@@ -105,22 +105,14 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 comboTable.Enabled = false;
             }
         }
-        void clearConnectionString()
-        {
-            connectionString = "";
-            dataSource = "";
-            initialCatalog = "";
-            userId = "";
-            userPass = "";
-        }
-        void clearItems()
+        void ClearItems()
         {
             comboDb.Text = "";
             comboTable.Text = "";
             SelectedDb = "";
             SelectedTable = "";
         }
-        void determineConnectionString()
+        void DetermineConnectionString()
         {
             try
             {
@@ -138,7 +130,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void getSystemDbsCount()
+        void GetSystemDbsCount()
         {
             try
             {
@@ -158,7 +150,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message + "We think your windows authentication login is disabled for sql server.");
             }
         }
-        void getAllDbsName()
+        void GetAllDbsName()
         {
             try
             {
@@ -178,7 +170,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message + "We think your windows authentication login is disabled for sql server.");
             }
         }
-        void addDbNametoCombobox()
+        void AddDbNametoCombobox()
         {
             comboDb.Items.Clear();
             for (int i = 0; i < totalDbCount; i++)
@@ -186,7 +178,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 comboDb.Items.Add(listDatabases[i]);
             }
         }
-        void fillSqlServerAuthUsers()
+        void FillSqlServerAuthUsers()
         {
             try
             {
@@ -206,7 +198,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void addSqlServerUserstoCombobox()
+        void AddSqlServerUserstoCombobox()
         {
             try
             {
@@ -220,7 +212,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void getTableCountforSelectedDb()
+        void GetTableCountforSelectedDb()
         {
             try
             {
@@ -237,7 +229,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void getTablesforSelectedDb()
+        void GetTablesforSelectedDb()
         {
             try
             {
@@ -254,7 +246,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-        void addTableNametoCombobox()
+        void AddTableNametoCombobox()
         {
             comboTable.Items.Clear();
             try
@@ -675,7 +667,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
         }
         void WritetoFileforCsharp()
         {
-            makeSelectedTableSingular(SelectedTable);
+            MakeSelectedTableSingular(SelectedTable);
             try
             {
                 fileText = "";
@@ -727,7 +719,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
         }
         void WritetoFileforFlutter()
         {
-            makeSelectedTableSingular(SelectedTable);
+            MakeSelectedTableSingular(SelectedTable);
             try
             {
                 fileText = "";
@@ -774,7 +766,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
         }
         void WritetoFileforTypescript()
         {
-            makeSelectedTableSingular(SelectedTable);
+            MakeSelectedTableSingular(SelectedTable);
             try
             {
                 fileText = "";
@@ -853,31 +845,23 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
-
-        void makeSelectedTableSingular(string SelectedTable)
+        void MakeSelectedTableSingular(string selectedTable)
         {
             try
             {
-                //TODO önce ies bak sonra s bak
-                selectedTableSingular = SelectedTable;
+                selectedTableSingular = selectedTable;
 
-                //TODO| First Turkish character control.
                 if (selectedTableSingular.EndsWith("ler") || selectedTableSingular.EndsWith("lar") || selectedTableSingular.EndsWith("LER") || selectedTableSingular.EndsWith("LAR"))
                 {
                     selectedTableSingular = selectedTableSingular.Substring(0, selectedTableSingular.Length - 3);
                 }
 
-                //TODO| Check English spelling rules -ies  -y
-                else if (selectedTableSingular.EndsWith("ies") || selectedTableSingular.EndsWith("IES"))
+                else if (selectedTableSingular.ToLower().EndsWith("ies"))
                 {
                     selectedTableSingular = selectedTableSingular.Substring(0, selectedTableSingular.Length - 3) + "y";
                 }
 
-                //TODO| Check English spelling rules   
-                //else if ()
-                //{
-                //}
-                else if (selectedTableSingular.EndsWith("s") || selectedTableSingular.EndsWith("S"))
+                else if (selectedTableSingular.ToLower().EndsWith("s"))
                 {
                     selectedTableSingular = selectedTableSingular.Substring(0, selectedTableSingular.Length - 1);
                 }
@@ -950,10 +934,10 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
                     initialCatalog = ";initial catalog=" + SelectedDb.ToString();
 
-                    determineConnectionString();
-                    getTableCountforSelectedDb();
-                    getTablesforSelectedDb();
-                    addTableNametoCombobox();
+                    DetermineConnectionString();
+                    GetTableCountforSelectedDb();
+                    GetTablesforSelectedDb();
+                    AddTableNametoCombobox();
 
                     pictureDb.Visible = true;
                 }
@@ -980,7 +964,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 if (comboTable.SelectedItem != null && comboTable.SelectedItem != "")
                 {
                     SelectedTable = comboTable.SelectedItem.ToString();
-                    determineConnectionString();
+                    DetermineConnectionString();
                     GetColumnsCountSelectedTable();
                     GetColumnsforSelectedTable();
                     GetDataTypesforSelectedTable();
@@ -1014,9 +998,9 @@ namespace StandardProgrammingAssistant.ModelGenerator
 
                     if (comboFilePrefences.SelectedIndex == 0)
                     {
-                        createFolder("Csharp");
-                        createFolder("Flutter");
-                        createFolder("TypeScript");
+                        CreateFolder("Csharp");
+                        CreateFolder("Flutter");
+                        CreateFolder("TypeScript");
 
                         EditAndWritetoCSharpTextBox();
                         EditAndWritetoFlutterTextBox();
@@ -1039,7 +1023,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                     }
                     else if (comboFilePrefences.SelectedIndex == 1)
                     {
-                        createFolder("Flutter");
+                        CreateFolder("Flutter");
 
                         tabControl1.SelectedTab = tabControl1.TabPages["tabPage2"];
 
@@ -1053,7 +1037,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                     }
                     else if (comboFilePrefences.SelectedIndex == 2)
                     {
-                        createFolder("Csharp");
+                        CreateFolder("Csharp");
                         tabControl1.SelectedTab = tabControl1.TabPages["tabPage1"];
 
                         EditAndWritetoCSharpTextBox();
@@ -1066,7 +1050,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                     }
                     else if (comboFilePrefences.SelectedIndex == 3)
                     {
-                        createFolder("TypeScript");
+                        CreateFolder("TypeScript");
                         tabControl1.SelectedTab = tabControl1.TabPages["tabPage3"];
 
                         EditAndWritetoTypescriptTextBox();
@@ -1110,279 +1094,6 @@ namespace StandardProgrammingAssistant.ModelGenerator
                         textBoxTypescript.Clear();
                         initialCatalog = ";initial catalog=" + SelectedDb;
 
-                        //  getTotalColumnCount
-                        GetColumnsCountSelectedTable();
-
-                        //  getColumnList
-                        GetColumnsforSelectedTable();
-
-                        //  getColumnDataType
-                        GetDataTypesforSelectedTable();
-
-                        void EditAndWritetoCSharpTextBox()
-                        {
-                            try
-                            {
-                                for (int m = 0; m < totalColumnCount; m++)
-                                {
-                                    textBoxCsharp.AppendText("\t\tpublic ");
-
-                                    if (listDataType[m].Contains("char"))
-                                    {
-                                        textBoxCsharp.AppendText("string ");
-                                        textBoxCsharp.AppendText(listColumn[m]);
-                                        textBoxCsharp.AppendText(" { get; set; }");
-                                        textBoxCsharp.AppendText(" = \"\";");
-
-                                    }
-                                    else if (listDataType[m].Contains("int"))
-                                    {
-                                        textBoxCsharp.AppendText("int ");
-                                        textBoxCsharp.AppendText(listColumn[m]);
-                                        textBoxCsharp.AppendText(" { get; set; }");
-                                        textBoxCsharp.AppendText(" = -2;");
-                                    }
-                                    else if (listDataType[m].Contains("datetime"))
-                                    {
-                                        textBoxCsharp.AppendText("DateTime ");
-                                        textBoxCsharp.AppendText(listColumn[m]);
-                                        textBoxCsharp.AppendText(" { get; set; }");
-                                        textBoxCsharp.AppendText(" = new DateTime(2002, 02, 02);");
-                                    }
-                                    else if (listDataType[m].Contains("varbinary"))
-                                    {
-                                        textBoxCsharp.AppendText("byte[] ");
-                                        textBoxCsharp.AppendText(listColumn[m]);
-                                        textBoxCsharp.AppendText(" { get; set; }");
-                                        textBoxCsharp.AppendText(" = new byte[0];");
-                                    }
-                                    else
-                                    {
-
-                                    }
-                                    textBoxCsharp.AppendText(Environment.NewLine);
-                                }
-                                EncapsulationCSharp();
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
-
-                        }
-
-                        void EditAndWritetoFlutterTextBox()
-                        {
-                            try
-                            {
-                                for (int k = 0; k < totalColumnCount; k++)
-                                {
-                                    textBoxFlutter.AppendText("\t@JsonKey(name: \"");
-                                    textBoxFlutter.AppendText(listColumn[k]);
-                                    textBoxFlutter.AppendText("\"");
-                                    textBoxFlutter.AppendText(")" + Environment.NewLine);
-
-
-                                    if (listDataType[k].Contains("char"))
-                                    {
-                                        textBoxFlutter.AppendText("\tString ");
-                                        textBoxFlutter.AppendText(listColumn[k]);
-                                        textBoxFlutter.AppendText(" = \"\";");
-
-                                    }
-                                    else if (listDataType[k].Contains("int"))
-                                    {
-                                        textBoxFlutter.AppendText("\tint ");
-                                        textBoxFlutter.AppendText(listColumn[k]);
-                                        textBoxFlutter.AppendText(" = -1;");
-
-                                    }
-                                    else if (listDataType[k].Contains("datetime"))
-                                    {
-                                        textBoxFlutter.AppendText("\tDateTime ");
-                                        textBoxFlutter.AppendText(listColumn[k]);
-                                        textBoxFlutter.AppendText(" = DateTime.utc(2111,01,01);");
-                                    }
-                                    else if (listDataType[k].Contains("varbinary"))
-                                    {
-                                        textBoxFlutter.AppendText("\tList<int> ");
-                                        textBoxFlutter.AppendText(listColumn[k]);
-                                        textBoxFlutter.AppendText(" = [];");
-                                    }
-                                    else
-                                    {
-
-                                    }
-                                    textBoxFlutter.AppendText(Environment.NewLine + Environment.NewLine);
-                                }
-                                EncapsulationFlutter();
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
-
-                        }
-
-                        void EditAndWritetoTypeScriptTextBox()
-                        {
-                            try
-                            {
-                                for (int m = 0; m < totalColumnCount; m++)
-                                {
-                                    textBoxTypescript.AppendText("\t");
-
-                                    if (listDataType[m].Contains("char"))
-                                    {
-                                        textBoxTypescript.AppendText(listColumn[m]);
-                                        textBoxTypescript.AppendText(": string");
-                                        textBoxTypescript.AppendText(" = \"\";");
-
-                                    }
-                                    else if (listDataType[m].Contains("int"))
-                                    {
-                                        textBoxTypescript.AppendText(listColumn[m]);
-                                        textBoxTypescript.AppendText(": number");
-                                        textBoxTypescript.AppendText(" = -2;");
-                                    }
-                                    else if (listDataType[m].Contains("datetime"))
-                                    {
-                                        textBoxTypescript.AppendText(listColumn[m]);
-                                        textBoxTypescript.AppendText(": Date");
-                                        textBoxTypescript.AppendText(" = new Date();");
-                                    }
-                                    else
-                                    {
-
-                                    }
-                                    textBoxTypescript.AppendText(Environment.NewLine);
-                                }
-                                EncapsulationTypescript();
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
-
-                        }
-
-                        void WritetoFileCsharpforSelectedDb()
-                        {
-                            try
-                            {
-                                makeSelectedTableSingular(listTables[i]);
-
-                                fileText = "";
-                                filePath = "C:\\Users\\";
-                                filePath += Environment.MachineName + "\\Desktop\\CSharp";
-                                filePathforUser = filePath;
-                                filePath += "\\" + selectedTableSingular + ".cs";
-
-                                fileText += "using System;" + Environment.NewLine;
-                                fileText += "using System.Collections.Generic;" + Environment.NewLine;
-                                fileText += "using System.Linq;" + Environment.NewLine;
-                                fileText += "using System.Text;" + Environment.NewLine;
-                                fileText += "using System;" + Environment.NewLine;
-                                fileText += "using System.Threading.Tasks;" + Environment.NewLine;
-                                fileText += Environment.NewLine;
-
-                                if (namespace_.Length > 1)
-                                    fileText += "namespace " + namespace_ + Environment.NewLine;
-                                else
-                                    fileText += "namespace xxprojectname.xxfoldername" + Environment.NewLine;
-
-                                fileText += "{" + Environment.NewLine;
-                                fileText += "\tpublic class " + selectedTableSingular + Environment.NewLine;
-                                fileText += "\t{" + Environment.NewLine;
-                                fileText += textBoxCsharp.Text + Environment.NewLine + Environment.NewLine;
-
-                                fileText += "\t}" + Environment.NewLine;
-                                fileText += "}";
-
-                                using (FileStream fs = File.Create(filePath))
-                                {
-                                    byte[] info = new UTF8Encoding(true).GetBytes(fileText);
-                                    // Add some information to the file.
-                                    fs.Write(info, 0, info.Length);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
-                        }
-
-                        void WritetoFileFlutterforSelectedDb()
-                        {
-                            try
-                            {
-                                makeSelectedTableSingular(listTables[i]);
-
-                                fileText = "";
-                                filePath = "C:\\Users\\";
-                                filePath += Environment.MachineName + "\\Desktop\\Flutter";
-                                filePath += "\\" + selectedTableSingular.ToLower().Replace("ý", "i") + ".dart";
-
-                                fileText += "// ignore_for_file: non_constant_identifier_names, depend_on_referenced_packages" + Environment.NewLine + Environment.NewLine;
-
-                                fileText += "import 'package:json_annotation/json_annotation.dart';" + Environment.NewLine + Environment.NewLine;
-                                fileText += "part '" + selectedTableSingular.ToLower().Replace("ý", "i") + ".g.dart';" + Environment.NewLine + Environment.NewLine;
-                                fileText += "@JsonSerializable()" + Environment.NewLine;
-                                fileText += "class " + selectedTableSingular + " {" + Environment.NewLine + Environment.NewLine;
-
-                                fileText += textBoxFlutter.Text;
-
-                                fileText += "\t" + selectedTableSingular + "();" + Environment.NewLine;
-
-                                fileText += "\tfactory " + selectedTableSingular + ".fromJson (Map<String, dynamic> json) => _$" + selectedTableSingular + "FromJson(json);" + Environment.NewLine;
-                                fileText += "\tMap<String, dynamic> toJson() => _$" + selectedTableSingular + "ToJson(this);" + Environment.NewLine;
-
-                                fileText += "}";
-
-                                using (FileStream fs = File.Create(filePath))
-                                {
-                                    byte[] info = new UTF8Encoding(true).GetBytes(fileText);
-                                    // Add some information to the file.
-                                    fs.Write(info, 0, info.Length);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
-                        }
-
-                        void WritetoFileTypescriptforSelectedDb()
-                        {
-                            try
-                            {
-                                makeSelectedTableSingular(listTables[i]);
-
-                                fileText = "";
-                                filePath = "C:\\Users\\";
-                                filePath += Environment.MachineName + "\\Desktop\\TypeScript";
-                                filePathforUser = filePath;
-                                filePath += "\\" + selectedTableSingular + ".ts";
-
-
-                                fileText += "\texport class " + selectedTableSingular + Environment.NewLine;
-                                fileText += "\t{" + Environment.NewLine;
-                                fileText += textBoxTypescript.Text + Environment.NewLine + Environment.NewLine;
-                                fileText += "\t}" + Environment.NewLine;
-
-                                using (FileStream fs = File.Create(filePath))
-                                {
-                                    byte[] info = new UTF8Encoding(true).GetBytes(fileText);
-                                    // Add some information to the file.
-                                    fs.Write(info, 0, info.Length);
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show(ex.Message);
-                            }
-                        }
-
                         void WritetoTextBoxCsharpInfo()
                         {
                             textBoxCsharp.Clear();
@@ -1401,20 +1112,24 @@ namespace StandardProgrammingAssistant.ModelGenerator
                             textBoxTypescript.AppendText("The TypeScript files were created on the desktop : " + filePathforUser + ".ts");
                         }
 
+                        GetColumnsCountSelectedTable();
+                        GetColumnsforSelectedTable();
+                        GetDataTypesforSelectedTable();
+
                         // 0:both 1:flutter 2:csharp
                         if (comboFilePrefences.SelectedIndex == 0)
                         {
-                            createFolder("Csharp");
-                            createFolder("Flutter");
-                            createFolder("TypeScript");
+                            CreateFolder("Csharp");
+                            CreateFolder("Flutter");
+                            CreateFolder("TypeScript");
 
                             EditAndWritetoCSharpTextBox();
                             EditAndWritetoFlutterTextBox();
-                            EditAndWritetoTypeScriptTextBox();
+                            EditAndWritetoTypescriptTextBox();
 
-                            WritetoFileCsharpforSelectedDb();
-                            WritetoFileFlutterforSelectedDb();
-                            WritetoFileTypescriptforSelectedDb();
+                            WritetoFileforCsharp();
+                            WritetoFileforFlutter();
+                            WritetoFileforTypescript();
 
                             WritetoTextBoxFlutterInfo();
                             WritetoTextBoxCsharpInfo();
@@ -1422,34 +1137,34 @@ namespace StandardProgrammingAssistant.ModelGenerator
                         }
                         else if (comboFilePrefences.SelectedIndex == 1)
                         {
-                            createFolder("Flutter");
+                            CreateFolder("Flutter");
 
                             tabControl1.SelectedTab = tabControl1.TabPages["tabPage2"];
 
                             EditAndWritetoFlutterTextBox();
-                            WritetoFileFlutterforSelectedDb();
+                            WritetoFileforFlutter();
 
                             WritetoTextBoxFlutterInfo();
                         }
                         else if (comboFilePrefences.SelectedIndex == 2)
                         {
-                            createFolder("Csharp");
+                            CreateFolder("Csharp");
 
                             tabControl1.SelectedTab = tabControl1.TabPages["tabPage1"];
 
                             EditAndWritetoCSharpTextBox();
-                            WritetoFileCsharpforSelectedDb();
+                            WritetoFileforCsharp();
 
                             WritetoTextBoxCsharpInfo();
                         }
                         else if (comboFilePrefences.SelectedIndex == 3)
                         {
-                            createFolder("TypeScript");
+                            CreateFolder("TypeScript");
 
                             tabControl1.SelectedTab = tabControl1.TabPages["tabPage3"];
 
-                            EditAndWritetoTypeScriptTextBox();
-                            WritetoFileTypescriptforSelectedDb();
+                            EditAndWritetoTypescriptTextBox();
+                            WritetoFileforTypescript();
 
                             WritetoTextBoxTypescriptInfo();
                         }
@@ -1483,13 +1198,6 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 textBoxNamespace.ForeColor = Color.Black;
 
             }
-        }
-
-        private void pictureBoxRelease_Click(object sender, EventArgs e)
-        {
-            Versions versions = new Versions();
-            versions.Show();
-            pictureBoxRelease.Enabled = false;
         }
 
         private void pictureBoxUserGuide_Click(object sender, EventArgs e)
@@ -1532,12 +1240,12 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 comboFilePrefences.SelectedIndex = 0;
                 textBoxPassword.UseSystemPasswordChar = true;
 
-                determineConnectionString();
-                getSystemDbsCount();
-                getAllDbsName();
-                addDbNametoCombobox();
-                fillSqlServerAuthUsers();
-                addSqlServerUserstoCombobox();
+                DetermineConnectionString();
+                GetSystemDbsCount();
+                GetAllDbsName();
+                AddDbNametoCombobox();
+                FillSqlServerAuthUsers();
+                AddSqlServerUserstoCombobox();
             }
             catch (Exception ex)
             {
@@ -1558,7 +1266,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
             comboFilePrefences.Enabled = false;
             extra = "";
             ShowSqlServerLoginInterface(true);
-            clearItems();
+            ClearItems();
         }
 
         private void radioButtonWindowsAuth_Click(object sender, EventArgs e)
@@ -1573,7 +1281,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
             btnForSelectedDatabase.Enabled = true;
             comboFilePrefences.Enabled = true;
             ShowSqlServerLoginInterface(false);
-            clearItems();
+            ClearItems();
         }
 
         private void btnConnect_MouseHover(object sender, EventArgs e)
@@ -1591,7 +1299,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
             extra = "";
             userId = ";user id=" + comboLogin.Text;
             userPass = ";password=" + textBoxPassword.Text;
-            checkSqlAuth();
+            CheckSqlAuth();
         }
 
     }

@@ -63,12 +63,11 @@
             this.textBoxCsharp = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.textBoxFlutter = new System.Windows.Forms.TextBox();
-            this.pictureBoxUserGuide = new System.Windows.Forms.PictureBox();
-            this.pictureBoxRelease = new System.Windows.Forms.PictureBox();
-            this.pictureConnect = new System.Windows.Forms.PictureBox();
-            this.lblConnect = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.textBoxTypescript = new System.Windows.Forms.TextBox();
+            this.pictureBoxUserGuide = new System.Windows.Forms.PictureBox();
+            this.pictureConnect = new System.Windows.Forms.PictureBox();
+            this.lblConnect = new System.Windows.Forms.Label();
             this.gboxServer.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picturePassword)).BeginInit();
@@ -81,10 +80,9 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserGuide)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRelease)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureConnect)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserGuide)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConnect)).BeginInit();
             this.SuspendLayout();
             // 
             // gboxServer
@@ -459,6 +457,25 @@
             this.textBoxFlutter.Size = new System.Drawing.Size(562, 250);
             this.textBoxFlutter.TabIndex = 0;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.textBoxTypescript);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(558, 246);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "TypeScript Model";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // textBoxTypescript
+            // 
+            this.textBoxTypescript.Location = new System.Drawing.Point(2, 0);
+            this.textBoxTypescript.Multiline = true;
+            this.textBoxTypescript.Name = "textBoxTypescript";
+            this.textBoxTypescript.Size = new System.Drawing.Size(553, 243);
+            this.textBoxTypescript.TabIndex = 0;
+            // 
             // pictureBoxUserGuide
             // 
             this.pictureBoxUserGuide.Image = global::StandardProgrammingAssistant.Properties.Resources.document;
@@ -469,17 +486,6 @@
             this.pictureBoxUserGuide.TabIndex = 10;
             this.pictureBoxUserGuide.TabStop = false;
             this.pictureBoxUserGuide.Click += new System.EventHandler(this.pictureBoxUserGuide_Click);
-            // 
-            // pictureBoxRelease
-            // 
-            this.pictureBoxRelease.Image = global::StandardProgrammingAssistant.Properties.Resources.indir;
-            this.pictureBoxRelease.Location = new System.Drawing.Point(505, 708);
-            this.pictureBoxRelease.Name = "pictureBoxRelease";
-            this.pictureBoxRelease.Size = new System.Drawing.Size(33, 24);
-            this.pictureBoxRelease.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxRelease.TabIndex = 9;
-            this.pictureBoxRelease.TabStop = false;
-            this.pictureBoxRelease.Click += new System.EventHandler(this.pictureBoxRelease_Click);
             // 
             // pictureConnect
             // 
@@ -502,25 +508,6 @@
             this.lblConnect.Text = "Connected";
             this.lblConnect.Visible = false;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.textBoxTypescript);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(558, 246);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "TypeScript Model";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // textBoxTypescript
-            // 
-            this.textBoxTypescript.Location = new System.Drawing.Point(2, 0);
-            this.textBoxTypescript.Multiline = true;
-            this.textBoxTypescript.Name = "textBoxTypescript";
-            this.textBoxTypescript.Size = new System.Drawing.Size(553, 243);
-            this.textBoxTypescript.TabIndex = 0;
-            // 
             // SqlServerModelGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -529,7 +516,6 @@
             this.Controls.Add(this.lblConnect);
             this.Controls.Add(this.pictureConnect);
             this.Controls.Add(this.pictureBoxUserGuide);
-            this.Controls.Add(this.pictureBoxRelease);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -560,11 +546,10 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserGuide)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxRelease)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureConnect)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUserGuide)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConnect)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -604,7 +589,6 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.PictureBox pictureBoxRelease;
         private System.Windows.Forms.PictureBox pictureBoxUserGuide;
         private System.Windows.Forms.TextBox textBoxCsharp;
         private System.Windows.Forms.TextBox textBoxFlutter;

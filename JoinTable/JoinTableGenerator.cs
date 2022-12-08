@@ -21,26 +21,19 @@ namespace StandardProgrammingAssistant.JoinTable
 
         int totalDbCount = 0;
         int totalTableCountForSelectedDb = 0;
-        int totalColumnCount = 0;
 
         string SelectedDb = "";
         string SelectedTable = "";
-        string SelectedColumn = "";
         string selectedTableSingular = "";
 
         List<string> listDatabases = new List<string>();
         List<string> listTables = new List<string>();
         List<string> listColumns = new List<string>();
-        List<string> listDataType = new List<string>();
-        List<string> listDataTypeSize = new List<string>();
 
         string fileText = "";
         string staticFilePath = "";
 
-
-        int connectionType = -1;
-
-        void getSystemDbsCount()
+        void GetSystemDbsCount()
         {
             try
             {
@@ -60,7 +53,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 MessageBox.Show("Connection error: " + ex.Message);
             }
         }
-        void getAllDbsName()
+        void GetAllDbsName()
         {
             try
             {
@@ -80,7 +73,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 MessageBox.Show("Failed to retrieve Db names.");
             }
         }
-        void addDbNametoCombobox()
+        void AddDbNametoCombobox()
         {
             comboDb.Items.Clear();
             for (int i = 0; i < totalDbCount; i++)
@@ -88,7 +81,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 comboDb.Items.Add(listDatabases[i]);
             }
         }
-        void getTableCountforSelectedDb()
+        void GetTableCountforSelectedDb()
         {
             try
             {
@@ -105,7 +98,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 MessageBox.Show(ex.Message);
             }
         }
-        void getTablesforSelectedDb()
+        void GetTablesforSelectedDb()
         {
             try
             {
@@ -122,7 +115,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 MessageBox.Show(ex.Message);
             }
         }
-        void addTableNametoCombobox()
+        void AddTableNametoCombobox()
         {
             for (int i = 0; i < totalTableCountForSelectedDb; i++)
             {
@@ -133,7 +126,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 comboTable5.Items.Add(listTables[i]);
             }
         }
-        void addTableNametoComboboxforNewDatabaseSelection()
+        void AddTableNametoComboboxforNewDatabaseSelection()
         {
             comboTable1.Items.Clear();
             comboTable2.Items.Clear();
@@ -141,9 +134,9 @@ namespace StandardProgrammingAssistant.JoinTable
             comboTable4.Items.Clear();
             comboTable5.Items.Clear();
 
-            addTableNametoCombobox();
+            AddTableNametoCombobox();
         }
-        void getColumnsforSelectedTable()
+        void GetColumnsforSelectedTable()
         {
             try
             {
@@ -159,7 +152,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 MessageBox.Show(ex.Message);
             }
         }
-        void addColumnNametoCombobox(ComboBox comboTableColumn)
+        void AddColumnNametoCombobox(ComboBox comboTableColumn)
         {
             btnWriteonDesktop.Enabled = false;
 
@@ -182,8 +175,8 @@ namespace StandardProgrammingAssistant.JoinTable
             string table4 = "";
             string table5 = "";
 
-            string singularTable1 = makeSelectedTableSingular(table1);
-            string singularTable2 = makeSelectedTableSingular(table2);
+            string singularTable1 = MakeSelectedTableSingular(table1);
+            string singularTable2 = MakeSelectedTableSingular(table2);
             string singularTable3 = "";
             string singularTable4 = "";
             string singularTable5 = "";
@@ -217,7 +210,7 @@ namespace StandardProgrammingAssistant.JoinTable
                     break;
                 case 3:
                     table3 = comboTable3.SelectedItem.ToString();
-                    singularTable3 = makeSelectedTableSingular(table3);
+                    singularTable3 = MakeSelectedTableSingular(table3);
 
                     for (int i = 0; i < comboTable3Columns.Items.Count; i++)
                     {
@@ -239,8 +232,8 @@ namespace StandardProgrammingAssistant.JoinTable
                 case 4:
                     table3 = comboTable3.SelectedItem.ToString();
                     table4 = comboTable4.SelectedItem.ToString();
-                    singularTable3 = makeSelectedTableSingular(table3);
-                    singularTable4 = makeSelectedTableSingular(table4);
+                    singularTable3 = MakeSelectedTableSingular(table3);
+                    singularTable4 = MakeSelectedTableSingular(table4);
 
                     for (int i = 0; i < comboTable3Columns.Items.Count; i++)
                     {
@@ -271,9 +264,9 @@ namespace StandardProgrammingAssistant.JoinTable
                     table3 = comboTable3.SelectedItem.ToString();
                     table4 = comboTable4.SelectedItem.ToString();
                     table5 = comboTable5.SelectedItem.ToString();
-                    singularTable3 = makeSelectedTableSingular(table3);
-                    singularTable4 = makeSelectedTableSingular(table4);
-                    singularTable5 = makeSelectedTableSingular(table5);
+                    singularTable3 = MakeSelectedTableSingular(table3);
+                    singularTable4 = MakeSelectedTableSingular(table4);
+                    singularTable5 = MakeSelectedTableSingular(table5);
 
                     for (int i = 0; i < comboTable3Columns.Items.Count; i++)
                     {
@@ -347,7 +340,7 @@ namespace StandardProgrammingAssistant.JoinTable
 
             textBoxExecuteSp.Text = spJoin;
         }
-        void createFolder(string folderName)
+        void CreateFolder(string folderName)
         {
             string path;
 
@@ -356,7 +349,7 @@ namespace StandardProgrammingAssistant.JoinTable
 
             Directory.CreateDirectory(folder);
         }
-        void writeTheFileJoin()
+        void WriteTheFileJoin()
         {
             try
             {
@@ -396,7 +389,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 MessageBox.Show(ex.Message);
             }
         }
-        void writeTheFileJoinSp()
+        void WriteTheFileJoinSp()
         {
             try
             {
@@ -447,7 +440,7 @@ namespace StandardProgrammingAssistant.JoinTable
                 ExecuteQuery(textBoxExecuteSp.Text, sqlConn);
             }
         }
-        string makeSelectedTableSingular(string SelectedTable)
+        string MakeSelectedTableSingular(string SelectedTable)
         {
             try
             {
@@ -488,19 +481,19 @@ namespace StandardProgrammingAssistant.JoinTable
             }
             return "empty";
         }
-        void visibilityOpen(PictureBox pictureTable, Label lblKey, ComboBox comboTableColumns)
+        void VisibilityOpen(PictureBox pictureTable, Label lblKey, ComboBox comboTableColumns)
         {
             pictureTable.Visible = true;
             lblKey.Visible = true;
             comboTableColumns.Visible = true;
         }
-        void visibilityClose(PictureBox pictureTable, Label lblKey, ComboBox comboTableColumns)
+        void VisibilityClose(PictureBox pictureTable, Label lblKey, ComboBox comboTableColumns)
         {
             pictureTable.Visible = false;
             lblKey.Visible = false;
             comboTableColumns.Visible = false;
         }
-        void visibilityCloseAllPictureTable()
+        void VisibilityCloseAllPictureTable()
         {
             pictureTable1.Visible = false;
             pictureTable2.Visible = false;
@@ -508,7 +501,7 @@ namespace StandardProgrammingAssistant.JoinTable
             pictureTable4.Visible = false;
             pictureTable5.Visible = false;
         }
-        void clearTextComboTable()
+        void ClearTextComboTable()
         {
             comboTable1.Text = "";
             comboTable2.Text = "";
@@ -516,7 +509,7 @@ namespace StandardProgrammingAssistant.JoinTable
             comboTable4.Text = "";
             comboTable5.Text = "";
         }
-        void clearTextComboTableColumns()
+        void ClearTextComboTableColumns()
         {
             comboTable1Columns.Text = "";
             comboTable2Columns.Text = "";
@@ -532,9 +525,9 @@ namespace StandardProgrammingAssistant.JoinTable
 
         private void JoinTableGenerator_Load(object sender, EventArgs e)
         {
-            getSystemDbsCount();
-            getAllDbsName();
-            addDbNametoCombobox();
+            GetSystemDbsCount();
+            GetAllDbsName();
+            AddDbNametoCombobox();
         }
 
         private void numericNumberofTable_ValueChanged(object sender, EventArgs e)
@@ -544,19 +537,19 @@ namespace StandardProgrammingAssistant.JoinTable
             switch (numericNumberofTable.Value)
             {
                 case 2:
-                    visibilityClose(pictureTable3, lblKey3, comboTable3Columns);
+                    VisibilityClose(pictureTable3, lblKey3, comboTable3Columns);
                     label3.Visible = false;
                     comboTable3.Visible = false;
                     comboTable3.Text = "";
                     comboTable3Columns.SelectedIndex = -1;
 
-                    visibilityClose(pictureTable4, lblKey4, comboTable4Columns);
+                    VisibilityClose(pictureTable4, lblKey4, comboTable4Columns);
                     label4.Visible = false;
                     comboTable4.Visible = false;
                     comboTable4.Text = "";
                     comboTable4Columns.SelectedIndex = -1;
 
-                    visibilityClose(pictureTable5, lblKey5, comboTable5Columns);
+                    VisibilityClose(pictureTable5, lblKey5, comboTable5Columns);
                     label5.Visible = false;
                     comboTable5.Visible = false;
                     comboTable5.Text = "";
@@ -566,13 +559,13 @@ namespace StandardProgrammingAssistant.JoinTable
                     label3.Visible = true;
                     comboTable3.Visible = true;
 
-                    visibilityClose(pictureTable4, lblKey4, comboTable4Columns);
+                    VisibilityClose(pictureTable4, lblKey4, comboTable4Columns);
                     label4.Visible = false;
                     comboTable4.Visible = false;
                     comboTable4.Text = "";
                     comboTable4Columns.SelectedIndex = -1;
 
-                    visibilityClose(pictureTable5, lblKey5, comboTable5Columns);
+                    VisibilityClose(pictureTable5, lblKey5, comboTable5Columns);
                     label5.Visible = false;
                     comboTable5.Visible = false;
                     comboTable5.Text = "";
@@ -585,7 +578,7 @@ namespace StandardProgrammingAssistant.JoinTable
                     label4.Visible = true;
                     comboTable4.Visible = true;
 
-                    visibilityClose(pictureTable5, lblKey5, comboTable5Columns);
+                    VisibilityClose(pictureTable5, lblKey5, comboTable5Columns);
                     label5.Visible = false;
                     comboTable5.Visible = false;
                     comboTable5.Text = "";
@@ -613,14 +606,14 @@ namespace StandardProgrammingAssistant.JoinTable
                 SelectedDb = comboDb.SelectedItem.ToString();
                 connectionStringforSelectedDB = "data source=localhost; initial catalog=" + SelectedDb + "; MultipleActiveResultSets=true; Trusted_Connection=true;";
 
-                getTableCountforSelectedDb();
-                getTablesforSelectedDb();
-                addTableNametoComboboxforNewDatabaseSelection();
+                GetTableCountforSelectedDb();
+                GetTablesforSelectedDb();
+                AddTableNametoComboboxforNewDatabaseSelection();
 
                 pictureDb.Visible = true;
-                visibilityCloseAllPictureTable();
-                clearTextComboTable();
-                clearTextComboTableColumns();
+                VisibilityCloseAllPictureTable();
+                ClearTextComboTable();
+                ClearTextComboTableColumns();
             }
             else
             {
@@ -631,41 +624,41 @@ namespace StandardProgrammingAssistant.JoinTable
         private void comboTable1_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedTable = comboTable1.SelectedItem.ToString();
-            visibilityOpen(pictureTable1, lblKey1, comboTable1Columns);
-            getColumnsforSelectedTable();
-            addColumnNametoCombobox(comboTable1Columns);
+            VisibilityOpen(pictureTable1, lblKey1, comboTable1Columns);
+            GetColumnsforSelectedTable();
+            AddColumnNametoCombobox(comboTable1Columns);
         }
 
         private void comboTable2_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedTable = comboTable2.SelectedItem.ToString();
-            visibilityOpen(pictureTable2, lblKey2, comboTable2Columns);
-            getColumnsforSelectedTable();
-            addColumnNametoCombobox(comboTable2Columns);
+            VisibilityOpen(pictureTable2, lblKey2, comboTable2Columns);
+            GetColumnsforSelectedTable();
+            AddColumnNametoCombobox(comboTable2Columns);
         }
 
         private void comboTable3_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedTable = comboTable3.SelectedItem.ToString();
-            visibilityOpen(pictureTable3, lblKey3, comboTable3Columns);
-            getColumnsforSelectedTable();
-            addColumnNametoCombobox(comboTable3Columns);
+            VisibilityOpen(pictureTable3, lblKey3, comboTable3Columns);
+            GetColumnsforSelectedTable();
+            AddColumnNametoCombobox(comboTable3Columns);
         }
 
         private void comboTable4_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedTable = comboTable4.SelectedItem.ToString();
-            visibilityOpen(pictureTable4, lblKey4, comboTable4Columns);
-            getColumnsforSelectedTable();
-            addColumnNametoCombobox(comboTable4Columns);
+            VisibilityOpen(pictureTable4, lblKey4, comboTable4Columns);
+            GetColumnsforSelectedTable();
+            AddColumnNametoCombobox(comboTable4Columns);
         }
 
         private void comboTable5_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedTable = comboTable5.SelectedItem.ToString();
-            visibilityOpen(pictureTable5, lblKey5, comboTable5Columns);
-            getColumnsforSelectedTable();
-            addColumnNametoCombobox(comboTable5Columns);
+            VisibilityOpen(pictureTable5, lblKey5, comboTable5Columns);
+            GetColumnsforSelectedTable();
+            AddColumnNametoCombobox(comboTable5Columns);
         }
 
         private void btnCreateJoin_Click(object sender, EventArgs e)
@@ -741,9 +734,9 @@ namespace StandardProgrammingAssistant.JoinTable
             {
                 if (textBoxJoinQuery.Text != "")
                 {
-                    createFolder("Joins");
-                    writeTheFileJoin();
-                    writeTheFileJoinSp();
+                    CreateFolder("Joins");
+                    WriteTheFileJoin();
+                    WriteTheFileJoinSp();
                     MessageBox.Show("Files saved to desktop");
                 }
                 else
