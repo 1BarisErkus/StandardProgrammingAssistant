@@ -391,6 +391,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
         {
             try
             {
+                CreateConstructorForFlutter();
                 for (int k = 0; k < totalColumnCount; k++)
                 {
                     textBoxFlutter.AppendText("\t@JsonKey(name: \"");
@@ -935,6 +936,31 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
+        void CreateConstructorForFlutter()
+        {
+            try
+            {
+                textBoxFlutter.AppendText("\t" + selectedTableSingular + "();" + Environment.NewLine);
+                textBoxFlutter.AppendText("\t" + selectedTableSingular + "(");
+
+                for (int i = 0; i < totalColumnCount; i++)
+                {
+                    textBoxFlutter.AppendText("this." + listColumn[i]);
+
+                    if (i != totalColumnCount - 1)
+                    {
+                        textBoxFlutter.AppendText(", ");
+                    }
+
+                }
+
+                textBoxFlutter.AppendText(");" + Environment.NewLine);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         void CreateConsturctorForTypescript()
         {
             try
@@ -988,6 +1014,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
                 MessageBox.Show(ex.Message);
             }
         }
+        
 
         public SqlServerModelGenerator()
         {
