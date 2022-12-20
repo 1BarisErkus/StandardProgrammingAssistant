@@ -340,6 +340,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
         {
             try
             {
+                CreateConsturctorForCSharp();
                 for (int i = 0; i < totalColumnCount; i++)
                 {
                     textBoxCsharp.AppendText("\tprivate ");
@@ -440,6 +441,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
         {
             try
             {
+                CreateConsturctorForTypescript();
                 for (int i = 0; i < totalColumnCount; i++)
                 {
                     textBoxTypescript.AppendText("\t");
@@ -873,6 +875,117 @@ namespace StandardProgrammingAssistant.ModelGenerator
             catch (Exception ex)
             {
                 MessageBox.Show("Database tables deduplication error" + ex.Message);
+            }
+        }
+        void CreateConsturctorForCSharp()
+        {
+            try
+            {
+                MakeSelectedTableSingular(SelectedTable);
+                textBoxCsharp.AppendText("\tpublic " + selectedTableSingular + "(){}" + Environment.NewLine);
+                textBoxCsharp.AppendText("\tpublic " + selectedTableSingular + "(");
+                for (int i = 0; i < totalColumnCount; i++)
+                {
+
+                    if (listDataType[i].Contains("char"))
+                    {
+                        textBoxCsharp.AppendText("string ");
+                        textBoxCsharp.AppendText(listColumn[i]);
+                    }
+                    else if (listDataType[i].Contains("int"))
+                    {
+                        textBoxCsharp.AppendText("int ");
+                        textBoxCsharp.AppendText(listColumn[i]);
+                    }
+                    else if (listDataType[i].Contains("datetime"))
+                    {
+                        textBoxCsharp.AppendText("DateTime ");
+                        textBoxCsharp.AppendText(listColumn[i]);
+                    }
+                    else if (listDataType[i].Contains("varbinary"))
+                    {
+                        textBoxCsharp.AppendText("byte[] ");
+                        textBoxCsharp.AppendText(listColumn[i]);
+                    }
+                    else
+                    {
+
+                    }
+
+                    if(i != totalColumnCount - 1)
+                    {
+                        textBoxCsharp.AppendText(", ");
+                    }
+                }
+
+                textBoxCsharp.AppendText(")" + Environment.NewLine + "\t{" + Environment.NewLine);
+
+                for (int i = 0; i < totalColumnCount; i++)
+                {
+                    textBoxCsharp.AppendText("\t\tthis." + listColumn[i]);
+                    textBoxCsharp.AppendText(" = " + listColumn[i]);
+                    textBoxCsharp.AppendText(Environment.NewLine);
+                }
+
+                textBoxCsharp.AppendText("\t}" + Environment.NewLine);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        void CreateConsturctorForTypescript()
+        {
+            try
+            {
+                textBoxTypescript.AppendText("\tconstructor(){}" + Environment.NewLine);
+                textBoxTypescript.AppendText("\tconstructor(");
+
+                for (int i = 0; i < totalColumnCount; i++)
+                {
+                    if (listDataType[i].Contains("char"))
+                    {
+                        textBoxTypescript.AppendText(listColumn[i]);
+                        textBoxTypescript.AppendText(": string");
+
+                    }
+                    else if (listDataType[i].Contains("int"))
+                    {
+                        textBoxTypescript.AppendText(listColumn[i]);
+                        textBoxTypescript.AppendText(": number");
+                    }
+                    else if (listDataType[i].Contains("datetime"))
+                    {
+                        textBoxTypescript.AppendText(listColumn[i]);
+                        textBoxTypescript.AppendText(": Date");
+                    }
+                    else
+                    {
+
+                    }
+
+                    if (i != totalColumnCount - 1)
+                    {
+                        textBoxTypescript.AppendText(", ");
+                    }
+                    
+                }
+
+                textBoxTypescript.AppendText(")" + Environment.NewLine + "\t{" + Environment.NewLine);
+
+                for (int i = 0; i < totalColumnCount; i++)
+                {
+                    textBoxTypescript.AppendText("\t\tthis." + listColumn[i]);
+                    textBoxTypescript.AppendText(" = " + listColumn[i]);
+                    textBoxTypescript.AppendText(Environment.NewLine);
+                }
+
+                textBoxTypescript.AppendText("\t}" + Environment.NewLine);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
