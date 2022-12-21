@@ -941,7 +941,7 @@ namespace StandardProgrammingAssistant.ModelGenerator
             try
             {
                 textBoxFlutter.AppendText("\t" + selectedTableSingular + "();" + Environment.NewLine);
-                textBoxFlutter.AppendText("\t" + selectedTableSingular + "(");
+                textBoxFlutter.AppendText("\t" + selectedTableSingular + ".withParametres(");
 
                 for (int i = 0; i < totalColumnCount; i++)
                 {
